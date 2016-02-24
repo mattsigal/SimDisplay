@@ -17,9 +17,3 @@ get_design_levels <- function(x){
   design <- attributes(x)$design_names$design
   design
 }
-
-get_sim_levels <- function(x){
-  sim <- attributes(x)$design_names$sim
-  sim
-}
-

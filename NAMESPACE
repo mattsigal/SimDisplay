@@ -2,3 +2,4 @@
 
 export(get_design_levels)
 export(get_sim_levels)
+export(shinySim)

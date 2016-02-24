@@ -15,14 +15,7 @@
 
 shinySim <- function(x){
   library(shiny)
-  fdat <- x
-  isSimDesign <- "SimDesign" %in% class(fdat)
+  simDat <- sim_design_check(x)
 
-  if (isSimDesign) {
-    sim_levels <- get_sim_levels(fdat)
-    des_levels <- get_design_levels(fdat)
-    simDat <- fdat[c(des_levels, sim_levels)]
-    simDat[,des_levels] <- lapply(simDat[,des_levels], as.factor)
-  }
   return(simDat) # test to see if return is as expected
 }

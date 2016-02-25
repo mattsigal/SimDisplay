@@ -12,16 +12,11 @@
 #' @seealso \code{\link{SimDisplay}}
 
 simTablePlot <- function(x){
+  library(ggplot2)
   simDat <- sim_design_check(x)
-
-  ggplot(data = dat,
-         aes(x = Var2,
-             y = Var1)) +
-  #geom_raster(aes(fill = value)) +
-  scale_fill_grey(name = "",
-                  labels = c("Present","Missing")) +
-  theme_minimal() +
-  theme(axis.text.x  = element_text(angle=45, vjust=0.5)) +
-  labs(x = "Variables in Dataset",
-       y = "Rows / observations")
+  p <- ggplot(data=simDat,
+              aes(y=sample_size,
+                  x=group_size_ratio)) +
+    geom_raster(aes(fill = lessthan.05.independent))
+  p + facet_grid(. ~ standard_deviation_ratio)
 }

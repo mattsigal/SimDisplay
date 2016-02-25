@@ -13,6 +13,7 @@
 #' data(tsimresults)
 #' str(tsimresults)
 #' head(tsimresults)
+#' library(shiny)
 #' runApp(shinySim(tsimresults))
 #' }
 #'
@@ -61,25 +62,49 @@ shinySim <- function(x){
         )),
 #-----------------------------------------------------------------------
     server = function(input, output) {
-      getdat <- function(input){
-        if(input$facetvar == "No") {
-          dat <- simDat[,c(input$rowvar, input$colvar, input$responsevar)]
-        }
-        if(input$facetvar == "Yes") {
-          dat <- simDat[,c(input$rowvar, input$colvar, input$responsevar, input$facvar)]
-        }
-        return(dat)
-      }
 
-      output$facet_status <- renderPrint(c(names(getdat(input)), input$facetvar, input$rowvar, input$colvar, input$responsevar))
+      output$facet_status <- renderPrint(c(input$facetvar, input$rowvar, input$colvar, input$responsevar))
 
       output$main_plot <- renderPlot({
-          dat <- getdat(input)
-          p <- ggplot(data = dat, aes_string(y=input$colvar, x=input$rowvar)) +
-            geom_raster(aes_string(fill=input$responsevar)) +
-            labs(x = input$colvar, y = input$rowvar)
-          print(p)
+          if (input$facetvar == "No") {
+            simDat <- simDat[,c(input$rowvar, input$colvar, input$responsevar)]
+            means <- aggregate(simDat[,input$responsevar] ~ simDat[,input$rowvar] +
+                                 simDat[,input$colvar],
+                               FUN = "mean")
+            colnames(means) <- c(as.character(input$rowvar),
+                                 as.character(input$colvar),
+                                 as.character(input$responsevar))
+            means[,ncol(means)] <- round(means[,ncol(means)], 3)
+
+            p <- ggplot(data = means,
+                        aes_string(y=input$rowvar, x=input$colvar, label=input$responsevar)) +
+              geom_raster(aes_string(fill=input$responsevar),
+                          interpolate = FALSE) +
+              geom_text(colour = 'black',
+                        size = 5) +
+              scale_fill_gradient2(low ="blue",
+                                   mid = "white",
+                                   high = "red",
+                                   midpoint = 0.05,
+                                   limits=c(0, .2)) +
+              labs(x = input$colvar, y = input$rowvar)
+            print(p)
+          }
+
           if (input$facetvar == "Yes") {
+            p <- ggplot(data = simDat,
+                        aes_string(y=input$rowvar, x=input$colvar, label=input$responsevar)) +
+              geom_raster(aes_string(fill=input$responsevar),
+                          interpolate = FALSE) +
+              geom_text(colour = 'black',
+                        size = 5) +
+              scale_fill_gradient2(low ="blue",
+                                   mid = "white",
+                                   high = "red",
+                                   midpoint = 0.05,
+                                   limits=c(0, .2)) +
+              labs(x = input$colvar, y = input$rowvar)
+            print(p)
             p + facet_grid(paste(". ~ ", input$facvar))
           }
         })

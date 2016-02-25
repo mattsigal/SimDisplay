@@ -18,6 +18,7 @@ specifically designed for the analysis of simulation study results.
 data(tsimresults)
 str(tsimresults)
 head(tsimresults)
+library(shiny)
 runApp(shinySim(tsimresults))
 }
 

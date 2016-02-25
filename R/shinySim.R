@@ -1,6 +1,7 @@
-#' shinySim
-#' \code{shinySim} is a function that launches an interactive shiny interface
-#' specifically designed for the analysis of simulation study designs.
+#' Launch Shiny interface for MCSS results
+#'
+#' \code{shinySim}launches an interactive shiny interface
+#' specifically designed for the analysis of simulation study results.
 #'
 #' @param x An \code{R} dataframe object, specifically of class \code{SimDesign}.
 #'

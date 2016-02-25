@@ -19,6 +19,20 @@ can convert a dataframe into a SimDesign object.
 }
 \examples{
 \dontrun{
+n <- c(15, 30, 50)
+sd <- c(0.5, 1, 2)
+skew <- c(1, 5, 10)
+dat <- expand.grid(N = n, SD = sd, Skew = skew,
+                   KEEP.OUT.ATTRS = FALSE)
+set.seed(123)
+dat$Result1 <- rnorm(27)
+dat$Result2 <- rnorm(27)
+
+convert_df(dat) # Error: N, SD, and Skew not set as factors
+
+dat[,1:3] <- lapply(dat[,1:3], as.factor)
+newdat <- convert_df(dat)
+str(newdat)
 }
 
 }

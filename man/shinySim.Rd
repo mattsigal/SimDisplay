@@ -2,9 +2,7 @@
 % Please edit documentation in R/shinySim.R
 \name{shinySim}
 \alias{shinySim}
-\title{shinySim
-\code{shinySim} is a function that launches an interactive shiny interface
-specifically designed for the analysis of simulation study designs.}
+\title{Launch Shiny interface for MCSS results}
 \usage{
 shinySim(x)
 }
@@ -12,9 +10,8 @@ shinySim(x)
 \item{x}{An \code{R} dataframe object, specifically of class \code{SimDesign}.}
 }
 \description{
-shinySim
-\code{shinySim} is a function that launches an interactive shiny interface
-specifically designed for the analysis of simulation study designs.
+\code{shinySim}launches an interactive shiny interface
+specifically designed for the analysis of simulation study results.
 }
 \examples{
 \dontrun{

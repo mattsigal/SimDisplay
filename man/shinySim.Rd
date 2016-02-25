@@ -18,6 +18,10 @@ specifically designed for the analysis of simulation study designs.
 }
 \examples{
 \dontrun{
+data(tsimresults)
+str(tsimresults)
+head(tsimresults)
+runApp(shinySim(tsimresults))
 }
 
 }

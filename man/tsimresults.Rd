@@ -10,19 +10,19 @@ data(tsimresults)
 }
 \description{
 \code{tsimresults} is a a dataset (of class data.frame as well as SimDesign) containing
-the standard output from \code{SimDesign}.
-For details on how this simulation was run, please refer to \code{?SimDesign::runSimulation}.
-The variables in the dataframe are:
+the standard output from \code{\link{SimDesign}}.
+For details on how this simulation was run, please refer to \code{\link{runSimulation}}.
+The variables in the \code{data.frame} are:
 }
 \details{
 \itemize{
-  \item sample_size. The sample size conditions in the study (30, 60, 90, 120)
-  \item group_size_ratio. The difference in sample size between the groups (.5, 1, 2)
-  \item standard_deviation_ratio. The difference in standard deviation between the groups (1, 4, 8)
-  \item lessthan.05.welch. The number of cells with p-values less than .05, using the Welch correction.
-  \item lessthan.05.independent. The number of cells with p-values less than .05, not using the Welch correction.
-  \item REPLICATIONS. The number of replications for each cell.
-  \item SIM_TIME. The amount of time each cell took to run.
+  \item \code{sample_size}. The sample size conditions in the study (30, 60, 90, 120)
+  \item \code{group_size_ratio}. The difference in sample size between the groups (.5, 1, 2)
+  \item \code{standard_deviation_ratio}. The difference in standard deviation between the groups (1, 4, 8)
+  \item \code{lessthan.05.welch}. The number of cells with p-values less than .05, using the Welch correction.
+  \item \code{lessthan.05.independent}. The number of cells with p-values less than .05, not using the Welch correction.
+  \item \code{REPLICATIONS}. The number of replications for each cell.
+  \item \code{SIM_TIME}. The amount of time each cell took to run.
 }
 }
 \keyword{datasets}

@@ -12,10 +12,12 @@ VignetteBuilder: knitr
 Depends:
     R (>= 2.15),
     SimDesign,
+    shiny,
     ggplot2
+Imports:
+    methods
 Suggests:
     testthat,
-    shiny,
     knitr
 License: GPL (>= 3)
 LazyData: TRUE

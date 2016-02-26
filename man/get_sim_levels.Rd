@@ -7,17 +7,18 @@
 get_sim_levels(x)
 }
 \arguments{
-\item{x}{An \code{R} dataframe object, specifically of class \code{SimDesign}.}
+\item{x}{A \code{data.frame} object, specifically of class \code{SimDesign}.}
 }
 \value{
 A vector of type character.
 }
 \description{
 \code{get_sim_levels} is a helper function that
-returns the vector names of the design levels from a SimDesign object.
+returns the vector names of the design levels from a \code{SimDesign} object.
 }
 \examples{
 \dontrun{
+#TODO
 }
 
 }

@@ -2,27 +2,24 @@
 % Please edit documentation in R/sim_design_check.R
 \name{sim_design_check}
 \alias{sim_design_check}
-\title{sim_design_check
-The \code{sim_design_check} function checks an R object to see if it is
-of class SimDesign. If so, the design and simulation elements are
-extracted and the design variables are converted to factors.}
+\title{sim_design_check}
 \usage{
 sim_design_check(x)
 }
 \arguments{
-\item{x}{An \code{R} dataframe object, specifically of class \code{SimDesign}.}
+\item{x}{A \code{data.frame} object, specifically of class \code{SimDesign}.}
 }
 \value{
-An R dataframe object.
+A \code{data.frame} object.
 }
 \description{
-sim_design_check
 The \code{sim_design_check} function checks an R object to see if it is
-of class SimDesign. If so, the design and simulation elements are
+of class \code{SimDesign}. If so, the design and simulation elements are
 extracted and the design variables are converted to factors.
 }
 \examples{
 \dontrun{
+#TODO
 }
 
 }

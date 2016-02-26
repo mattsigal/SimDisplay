@@ -7,10 +7,10 @@
 shinySim(x)
 }
 \arguments{
-\item{x}{An \code{R} dataframe object, specifically of class \code{SimDesign}.}
+\item{x}{A \code{data.frame} object, specifically of class \code{SimDesign}.}
 }
 \description{
-\code{shinySim}launches an interactive shiny interface
+\code{shinySim} launches an interactive shiny interface
 specifically designed for the analysis of simulation study results.
 }
 \examples{
@@ -18,7 +18,7 @@ specifically designed for the analysis of simulation study results.
 data(tsimresults)
 str(tsimresults)
 head(tsimresults)
-library(shiny)
+
 runApp(shinySim(tsimresults))
 }
 

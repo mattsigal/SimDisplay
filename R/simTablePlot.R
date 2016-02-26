@@ -1,21 +1,20 @@
-#' \code{simTablePlot} extends ggplot2 to produce table plot displays.
+#' \code{simTablePlot} extends \code{ggplot2} to produce table plot displays.
 #'
-#' @param x An \code{R} dataframe object, specifically of class \code{SimDesign}.
+#' @param x A \code{data.frame} object, specifically of class \code{SimDesign}.
 #'
 #' @return NULL
 #' @export
 #'
 #' @examples
 #' \dontrun{
+#' #TODO
 #' }
 #'
-#' @seealso \code{\link{SimDisplay}}
-
+#' @seealso \code{\link{SimDisplay}}, \code{\link{runSimulation}}
 simTablePlot <- function(x){
-  library(ggplot2)
   simDat <- sim_design_check(x)
   p <- ggplot(data=simDat,
-              aes(y=sample_size,
+              aes(y=sample_size, # devtools::check() warns that these are out of scope. FIXME
                   x=group_size_ratio)) +
     geom_raster(aes(fill = lessthan.05.independent))
   p + facet_grid(. ~ standard_deviation_ratio)

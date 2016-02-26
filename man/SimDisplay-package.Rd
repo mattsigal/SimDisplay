@@ -2,12 +2,13 @@
 % Please edit documentation in R/SimDisplay-package.R
 \docType{package}
 \name{SimDisplay-package}
+\alias{SimDisplay}
 \alias{SimDisplay-package}
 \title{SimDisplay - Methods for visualizing complex tables.}
 \description{
 The SimDisplay package provides a variety of methods for visualizing
 results from complex tables. It has been specifically designed to
-summarise Monte Carlo Simulation Study objects from SimDesign (Chalmers, 2016).
+summarise Monte Carlo Simulation Study objects from \code{\link{SimDesign}} (Chalmers, 2016).
 }
 \section{SimDisplay functions}{
 

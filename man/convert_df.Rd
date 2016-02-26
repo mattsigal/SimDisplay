@@ -7,15 +7,15 @@
 convert_df(x)
 }
 \arguments{
-\item{x}{An \code{R} dataframe object, specifically with simulation design
+\item{x}{A \code{data.frame} object, specifically with simulation design
 variables specified as factors, and simulation results as numeric.}
 }
 \value{
-An \code{R} dataframe object, of class SimDesign and data.frame.
+A \code{data.frame} object also of class \code{SimDesign}.
 }
 \description{
 \code{convert_df} is a helper function that
-can convert a dataframe into a SimDesign object.
+can convert a \code{data.frame} into a \code{SimDesign} object.
 }
 \examples{
 \dontrun{

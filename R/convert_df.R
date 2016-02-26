@@ -1,12 +1,14 @@
 #' Convert to SimDesign Object
 #'
 #' \code{convert_df} is a helper function that
-#' can convert a dataframe into a SimDesign object.
+#' can convert a \code{data.frame} into a \code{SimDesign} object.
 #'
-#' @param x An \code{R} dataframe object, specifically with simulation design
+#' @param x A \code{data.frame} object, specifically with simulation design
 #' variables specified as factors, and simulation results as numeric.
 #'
-#' @return An \code{R} dataframe object, of class SimDesign and data.frame.
+#' @return A \code{data.frame} object also of class \code{SimDesign}.
+#'
+#' @seealso \code{\link{SimDisplay}}
 #' @export
 #'
 #' @examples
@@ -27,7 +29,6 @@
 #' str(newdat)
 #' }
 #'
-#' @seealso \code{\link{SimDisplay}}
 convert_df <- function(x){
   x <- as.data.frame(x)
   is.fact <- sapply(x, is.factor)

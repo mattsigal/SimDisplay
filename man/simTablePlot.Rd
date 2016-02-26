@@ -2,22 +2,23 @@
 % Please edit documentation in R/simTablePlot.R
 \name{simTablePlot}
 \alias{simTablePlot}
-\title{\code{simTablePlot} extends ggplot2 to produce table plot displays.}
+\title{\code{simTablePlot} extends \code{ggplot2} to produce table plot displays.}
 \usage{
 simTablePlot(x)
 }
 \arguments{
-\item{x}{An \code{R} dataframe object, specifically of class \code{SimDesign}.}
+\item{x}{A \code{data.frame} object, specifically of class \code{SimDesign}.}
 }
 \description{
-\code{simTablePlot} extends ggplot2 to produce table plot displays.
+\code{simTablePlot} extends \code{ggplot2} to produce table plot displays.
 }
 \examples{
 \dontrun{
+#TODO
 }
 
 }
 \seealso{
-\code{\link{SimDisplay}}
+\code{\link{SimDisplay}}, \code{\link{runSimulation}}
 }
 

@@ -1,9 +1,9 @@
 #' Launch Shiny interface for MCSS results
 #'
-#' \code{shinySim}launches an interactive shiny interface
+#' \code{shinySim} launches an interactive shiny interface
 #' specifically designed for the analysis of simulation study results.
 #'
-#' @param x An \code{R} dataframe object, specifically of class \code{SimDesign}.
+#' @param x A \code{data.frame} object, specifically of class \code{SimDesign}.
 #'
 #' @return NULL
 #' @export
@@ -13,14 +13,12 @@
 #' data(tsimresults)
 #' str(tsimresults)
 #' head(tsimresults)
-#' library(shiny)
+#'
 #' runApp(shinySim(tsimresults))
 #' }
 #'
 #' @seealso \code{\link{SimDisplay}}
 shinySim <- function(x){
-  library(shiny)
-  library(ggplot2)
   # Check datafile for simDat structure
   simDat <- sim_design_check(x)
 

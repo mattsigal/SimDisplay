@@ -50,6 +50,9 @@ shinySim <- function(x){
                                      label = "Facet Variable:",
                                      choices = get_design_levels(x),
                                      selected = get_design_levels(x)[3])),
+        # checkboxInput(inputId = "label_text",
+        #               label = "Label cells?",
+        #               value = FALSE),
         selectInput(inputId = "responsevar",
                            label = "Response Variable:",
                            choices = get_sim_levels(x),
@@ -57,13 +60,14 @@ shinySim <- function(x){
         ),
         #-----------------------------------------------------------------------
         mainPanel(
-          plotOutput(outputId = "main_plot", height = "700px", width = "700px"),
-          textOutput(outputId = "facet_status")
+          plotOutput(outputId = "main_plot", height = "700px", width = "700px")
+          #textOutput(outputId = "facet_status")
         )),
 #-----------------------------------------------------------------------
     server = function(input, output) {
 
-      output$facet_status <- renderPrint(c(input$facetvar, input$rowvar, input$colvar, input$responsevar))
+      # output$facet_status <- renderPrint(c(input$facetvar, input$rowvar,
+      #                                      input$colvar, input$responsevar))
 
       output$main_plot <- renderPlot({
           if (input$facetvar == "No") {
@@ -81,7 +85,7 @@ shinySim <- function(x){
               geom_raster(aes_string(fill=input$responsevar),
                           interpolate = FALSE) +
               geom_text(colour = 'black',
-                        size = 5) +
+                         size = 5) +
               scale_fill_gradient2(low ="blue",
                                    mid = "white",
                                    high = "red",

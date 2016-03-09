@@ -12,7 +12,7 @@ Roxygen: list(wrap = FALSE)
 VignetteBuilder: knitr
 Depends:
     R (>= 2.15),
-    SimDesign,
+    SimDesign (>= 0.7.2),
     shiny,
     ggplot2
 Imports:

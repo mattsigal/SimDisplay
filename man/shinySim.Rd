@@ -4,10 +4,12 @@
 \alias{shinySim}
 \title{Launch Shiny interface for MCSS results}
 \usage{
-shinySim(x)
+shinySim(x, ...)
 }
 \arguments{
 \item{x}{A \code{data.frame} object, specifically of class \code{SimDesign}.}
+
+\item{...}{additional arguments to be passed to \code{\link{runApp}}}
 }
 \description{
 \code{shinySim} launches an interactive shiny interface
@@ -19,7 +21,8 @@ data(tsimresults)
 str(tsimresults)
 head(tsimresults)
 
-runApp(shinySim(tsimresults))
+shinySim(tsimresults, launch.browser = TRUE)
+
 }
 
 }

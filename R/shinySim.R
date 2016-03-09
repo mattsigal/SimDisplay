@@ -4,6 +4,7 @@
 #' specifically designed for the analysis of simulation study results.
 #'
 #' @param x A \code{data.frame} object, specifically of class \code{SimDesign}.
+#' @param ... additional arguments to be passed to \code{\link{runApp}}
 #'
 #' @return NULL
 #' @export
@@ -14,11 +15,16 @@
 #' str(tsimresults)
 #' head(tsimresults)
 #'
-#' runApp(shinySim(tsimresults))
+#' shinySim(tsimresults, launch.browser = TRUE)
+#'
 #' }
 #'
 #' @seealso \code{\link{SimDisplay}}
-shinySim <- function(x){
+shinySim <- function(x, ...){
+  runApp(shinySim_internal(x), ...)
+}
+
+shinySim_internal <- function(x){
   # Check datafile for simDat structure
   simDat <- sim_design_check(x)
 

@@ -1,6 +1,5 @@
 Package: SimDisplay
 Version: 0.1.0
-Date: 2016-02-23
 Type: Package
 Title: Visualization of Monte Carlo Simulation Study Data
 Authors@R: c(person("Matthew", "Sigal", email = "matthewsigal@gmail.com", role = c("aut", "cre")),

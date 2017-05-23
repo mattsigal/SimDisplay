@@ -26,4 +26,3 @@ The variables in the \code{data.frame} are:
 }
 }
 \keyword{datasets}
-

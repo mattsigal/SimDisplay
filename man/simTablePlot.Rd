@@ -21,4 +21,3 @@ simTablePlot(x)
 \seealso{
 \code{\link{SimDisplay}}, \code{\link{runSimulation}}
 }
-

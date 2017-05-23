@@ -29,4 +29,3 @@ shinySim(tsimresults, launch.browser = TRUE)
 \seealso{
 \code{\link{SimDisplay}}
 }
-

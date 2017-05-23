@@ -2,8 +2,8 @@
 % Please edit documentation in R/SimDisplay-package.R
 \docType{package}
 \name{SimDisplay-package}
-\alias{SimDisplay}
 \alias{SimDisplay-package}
+\alias{SimDisplay}
 \title{SimDisplay - Methods for visualizing complex tables.}
 \description{
 The SimDisplay package provides a variety of methods for visualizing
@@ -14,8 +14,8 @@ summarise Monte Carlo Simulation Study objects from \code{\link{SimDesign}} (Cha
 
 So far, this package implements the following functions: \code{tableplot}.
 }
+
 \author{
 Matthew Sigal \email{matthewsigal@gmail.com}
 }
 \keyword{package}
-

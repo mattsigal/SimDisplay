@@ -39,4 +39,3 @@ str(newdat)
 \seealso{
 \code{\link{SimDisplay}}
 }
-

@@ -13,7 +13,8 @@ Depends:
     R (>= 2.15),
     SimDesign (>= 0.7.2),
     shiny,
-    ggplot2
+    ggplot2,
+    plyr
 Imports:
     methods
 Suggests:
@@ -25,4 +26,4 @@ Maintainer: Matthew Sigal <matthewsigal@gmail.com>
 URL: https://github.com/mattsigal/SimDisplay,
     https://github.com/mattsigal/SimDisplay/wiki
 BugReports: https://github.com/mattsigal/SimDisplay/issues?state=open
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

@@ -2,6 +2,7 @@
 
 S3method(summary,SimDesign)
 export(convert_df)
+export(round_sim)
 export(shinySim)
 export(simTablePlot)
 import(SimDesign)

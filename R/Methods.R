@@ -13,6 +13,11 @@
 #' @examples
 #' \dontrun{
 #' summary(Brown1974)
+#' type1 <- subset(Brown1974, var_ratio == 1)
+#' power <- subset(Brown1974, var_ratio != 1)
+#'
+#' summary(type1)
+#' summary(power)
 #' }
 #'
 summary.SimDesign <- function(x) {
@@ -23,12 +28,11 @@ summary.SimDesign <- function(x) {
   dataColumns <- get_sim_levels(x)
 
   out <- list()
-
   for (i in 1:length(groupColumns)){
-    res <- ddply(x, groupColumns[i], function(x) colMeans(x[dataColumns]))
+    res <- ddply(x, groupColumns[i], function(x) round(colMeans(x[dataColumns]),3))
     out[[i]] <- res
   }
-
+  names(out) <- groupColumns
   return(out)
 }
 

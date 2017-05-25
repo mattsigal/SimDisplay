@@ -4,12 +4,14 @@
 \alias{round_sim}
 \title{Rounding values for presentation}
 \usage{
-round_sim(x, digits = 3)
+round_sim(x, digits = 3, percent = FALSE)
 }
 \arguments{
 \item{x}{A \code{vector} or \code{data.frame} object.}
 
 \item{digits}{An \code{integer} value indicating the number of digits to round to.}
+
+\item{percent}{A \code{boolean} value indicating whether column elements should be multiplied by 100.}
 }
 \value{
 A \code{vector} or \code{data.frame} object.
@@ -22,11 +24,12 @@ type of object, but rounded
 \dontrun{
 data(Brown1974)
 round_sim(Brown1974) # returns error
-round_sim(Brown1974[,5:9]) # dataframe input, dataframe output
-str(round_sim(Brown1974[,5:9])) # vectors are now character-type
-round_sim(Brown1974[,5:9], 2)
+round_sim(Brown1974[,4:9]) # dataframe input, dataframe output
+str(round_sim(Brown1974[,4:9])) # vectors are now character-type
+round_sim(Brown1974[,4:9], 2)
 
-dat <- rnorm(n = 50, mean = 0, sd = 150) # Wider range, vector input
+set.seed(83)
+dat <- rnorm(n = 5, mean = 0, sd = 150) # Wider range, vector input
 round_sim(dat) # vector output
 }
 

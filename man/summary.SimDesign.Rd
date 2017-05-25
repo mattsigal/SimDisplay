@@ -4,7 +4,7 @@
 \alias{summary.SimDesign}
 \title{Summary method for SimDesign objects}
 \usage{
-\method{summary}{SimDesign}(x)
+\method{summary}{SimDesign}(x, digits = 3, percent = FALSE)
 }
 \arguments{
 \item{x}{A \code{data.frame} object, of class \code{SimDesign}.}

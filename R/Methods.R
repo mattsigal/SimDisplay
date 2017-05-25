@@ -20,7 +20,7 @@
 #' summary(power)
 #' }
 #'
-summary.SimDesign <- function(x) {
+summary.SimDesign <- function(x, digits = 3, percent = FALSE) {
   if (!("SimDesign" %in% class(x)))
     return("This object is not of class SimDesign. See convert_df().")
 
@@ -29,7 +29,10 @@ summary.SimDesign <- function(x) {
 
   out <- list()
   for (i in 1:length(groupColumns)){
-    res <- ddply(x, groupColumns[i], function(x) round(colMeans(x[dataColumns]),3))
+    res <- ddply(x, groupColumns[i],
+                 function(x) round_sim(colMeans(x[dataColumns]),
+                                       digits = digits,
+                                       percent = percent))
     out[[i]] <- res
   }
   names(out) <- groupColumns

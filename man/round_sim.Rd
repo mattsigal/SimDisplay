@@ -28,7 +28,7 @@ round_sim(Brown1974[,4:9]) # dataframe input, dataframe output
 str(round_sim(Brown1974[,4:9])) # vectors are now character-type
 round_sim(Brown1974[,4:9], 2)
 
-set.seed(83)
+set.seed(10)
 dat <- rnorm(n = 5, mean = 0, sd = 150) # Wider range, vector input
 round_sim(dat) # vector output
 }

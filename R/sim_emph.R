@@ -24,7 +24,7 @@ sim_emph <- function(dat, upper.bound = .075, lower.bound = .025){
   require(pander)
   panderOptions('table.split.table', Inf)
   panderOptions('table.style', 'simple')
-  emph <- suppressWarnings(which(out > upper.bound | out < lower.bound, arr.ind = TRUE))
+  emph <- suppressWarnings(which(dat > upper.bound | dat < lower.bound, arr.ind = TRUE))
   ret <- pander_return(out, round = 2, emphasize.strong.cells = emph)
   return(ret)
 }

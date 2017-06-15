@@ -4,7 +4,7 @@
 \alias{sim_emph}
 \title{Emphasize cells from simulation results}
 \usage{
-sim_emph(dat, upper.bound = 0.075, lower.bound = 0.025)
+sim_emph(dat, upper.bound = 0.075, lower.bound = 0.025, colnames = NULL)
 }
 \arguments{
 \item{dat}{A \code{data.frame} object of \code{class(SimDesign)}.}
@@ -12,6 +12,8 @@ sim_emph(dat, upper.bound = 0.075, lower.bound = 0.025)
 \item{upper.bound}{An \code{integer} value indicating the upper limit.}
 
 \item{lower.bound}{An \code{integer} value indicating the lower limit.}
+
+\item{colnames}{An optional \code{character} vector indicating column names to use in the output.}
 }
 \value{
 A character \code{vector}.
@@ -25,7 +27,7 @@ data(Brown1974)
 Brown1974$REPLICATIONS <- Brown1974$SIM_TIME <- Brown1974$COMPLETED <- Brown1974$SEED <- NULL
 TypeI <- subset(Brown1974, var_ratio == 1) # Separate type I error rate conditions
 Power <- subset(Brown1974, var_ratio != 1) # from power conditions
-cat(sim_emph(TypeI), sep = '\\n')
+sim_emph(TypeI)
 }
 
 }

@@ -6,6 +6,7 @@
 #' @param upper.bound An \code{integer} value indicating the upper limit.
 #' @param lower.bound An \code{integer} value indicating the lower limit.
 #' @param colnames An optional \code{character} vector indicating column names to use in the output.
+#' @param digits Display how many significant digits?
 #'
 #' @return A character \code{vector}.
 #'
@@ -22,7 +23,7 @@
 #' }
 #'
 sim_emph <- function(dat, upper.bound = .075, lower.bound = .025,
-                     colnames = NULL){
+                     colnames = NULL, digits = 2){
   require(xtable)
 
   if (is.null(colnames)) {
@@ -42,7 +43,7 @@ sim_emph <- function(dat, upper.bound = .075, lower.bound = .025,
 
   # Convert variables to character:
   i <- sapply(df, is.numeric)
-  df[i] <- lapply(df[i], as.character)
+  df[i] <- lapply(df[i], round_sim, digits = digits)
 
   # Add highlighting:
   highlights <- paste0('\\textbf{', df[emph], '}')

@@ -4,7 +4,8 @@
 \alias{sim_emph}
 \title{Emphasize cells from simulation results}
 \usage{
-sim_emph(dat, upper.bound = 0.075, lower.bound = 0.025, colnames = NULL)
+sim_emph(dat, upper.bound = 0.075, lower.bound = 0.025, colnames = NULL,
+  digits = 2)
 }
 \arguments{
 \item{dat}{A \code{data.frame} object of \code{class(SimDesign)}.}
@@ -14,6 +15,8 @@ sim_emph(dat, upper.bound = 0.075, lower.bound = 0.025, colnames = NULL)
 \item{lower.bound}{An \code{integer} value indicating the lower limit.}
 
 \item{colnames}{An optional \code{character} vector indicating column names to use in the output.}
+
+\item{digits}{Display how many significant digits?}
 }
 \value{
 A character \code{vector}.

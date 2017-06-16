@@ -8,6 +8,7 @@
 #' @param lower.bound An \code{integer} value indicating the lower limit.
 #' @param colnames An optional \code{character} vector indicating column names to use in the output.
 #' @param digits Display how many significant digits?
+#' @param caption A \code{character} string indicating caption.
 #'
 #' @return A character \code{vector}.
 #'
@@ -25,7 +26,7 @@
 #'
 sim_emph <- function(dat, by = NULL,
                      upper.bound = .075, lower.bound = .025,
-                     colnames = NULL, digits = 2){
+                     colnames = NULL, digits = 2, caption = NULL){
   require(xtable)
 
   # Simple Dataframe:
@@ -35,6 +36,7 @@ sim_emph <- function(dat, by = NULL,
 
   # Collapse Dataframe if needed:
   if (!is.null(by)) {
+    library(reshape2)
     mlt <- melt(df, id.vars = groupColumns)
     groups <- groupColumns[!groupColumns %in% by]
     fm <- formula(paste0(paste0(groups, collapse = " + "), "~ variable"))
@@ -65,9 +67,10 @@ sim_emph <- function(dat, by = NULL,
   } else alignment <- c("c", rep("l", length(groupColumns)), rep("r", length(dataColumns)))
 
   # Generate table:
-  out <- xtable(df, label = NULL, caption = NULL, align = alignment)
+  out <- xtable(df, label = NULL, caption = caption, align = alignment)
 
   print(out, type='latex',
         sanitize.text.function=identity,
-        include.rownames=FALSE)
+        include.rownames=FALSE, table.placement="H",
+        caption.placement = "top")
 }

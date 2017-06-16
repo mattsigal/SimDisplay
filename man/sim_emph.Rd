@@ -5,7 +5,7 @@
 \title{Emphasize cells from simulation results}
 \usage{
 sim_emph(dat, by = NULL, upper.bound = 0.075, lower.bound = 0.025,
-  colnames = NULL, digits = 2)
+  colnames = NULL, digits = 2, caption = NULL)
 }
 \arguments{
 \item{dat}{A \code{data.frame} object of \code{class(SimDesign)}.}
@@ -19,6 +19,8 @@ sim_emph(dat, by = NULL, upper.bound = 0.075, lower.bound = 0.025,
 \item{colnames}{An optional \code{character} vector indicating column names to use in the output.}
 
 \item{digits}{Display how many significant digits?}
+
+\item{caption}{A \code{character} string indicating caption.}
 }
 \value{
 A character \code{vector}.

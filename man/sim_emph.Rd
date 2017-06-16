@@ -4,11 +4,13 @@
 \alias{sim_emph}
 \title{Emphasize cells from simulation results}
 \usage{
-sim_emph(dat, upper.bound = 0.075, lower.bound = 0.025, colnames = NULL,
-  digits = 2)
+sim_emph(dat, by = NULL, upper.bound = 0.075, lower.bound = 0.025,
+  colnames = NULL, digits = 2)
 }
 \arguments{
 \item{dat}{A \code{data.frame} object of \code{class(SimDesign)}.}
+
+\item{by}{A \code{character} value indicating a factor variable to collapse results by.}
 
 \item{upper.bound}{An \code{integer} value indicating the upper limit.}
 

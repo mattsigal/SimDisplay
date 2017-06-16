@@ -1,6 +1,6 @@
 #' Emphasize cells from simulation results
 #'
-#' \code{sim_emph} takes a \code{SimDesign} dataframe object, and returns a
+#' \code{simTable} takes a \code{SimDesign} dataframe object, and returns a
 #'
 #' @param dat A \code{data.frame} object of \code{class(SimDesign)}.
 #' @param by A \code{character} value indicating a factor variable to collapse results by.
@@ -21,10 +21,10 @@
 #' Brown1974$REPLICATIONS <- Brown1974$SIM_TIME <- Brown1974$COMPLETED <- Brown1974$SEED <- NULL
 #' TypeI <- subset(Brown1974, var_ratio == 1) # Separate type I error rate conditions
 #' Power <- subset(Brown1974, var_ratio != 1) # from power conditions
-#' sim_emph(TypeI)
+#' simTable(TypeI)
 #' }
 #'
-sim_emph <- function(dat, by = NULL,
+simTable <- function(dat, by = NULL,
                      upper.bound = .075, lower.bound = .025,
                      colnames = NULL, digits = 2, caption = NULL){
   require(xtable)

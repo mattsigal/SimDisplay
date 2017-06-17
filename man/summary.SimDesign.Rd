@@ -4,10 +4,16 @@
 \alias{summary.SimDesign}
 \title{Summary method for SimDesign objects}
 \usage{
-\method{summary}{SimDesign}(x, digits = 3, percent = FALSE)
+\method{summary}{SimDesign}(object, digits = 3, percent = FALSE, ...)
 }
 \arguments{
-\item{x}{A \code{data.frame} object, of class \code{SimDesign}.}
+\item{object}{A \code{data.frame} object, of class \code{SimDesign}}
+
+\item{digits}{TODO}
+
+\item{percent}{TODO}
+
+\item{...}{TODO}
 }
 \description{
 \code{summary.SimDesign} is a default method for summarizing a

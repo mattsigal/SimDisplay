@@ -16,7 +16,9 @@ Depends:
     ggplot2,
     plyr
 Imports:
-    methods
+    methods,
+    reshape2,
+    xtable
 Suggests:
     testthat,
     knitr

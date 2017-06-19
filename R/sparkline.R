@@ -20,7 +20,7 @@ sparkline <- function(x){
   plot <- ggplot(pdat, aes(y = Value,
                            x = Method,
                            group = 1)) +
-    geom_line(size = 1.5) + theme_spark()
+    geom_line(size = 2) + theme_spark()
   out <- ggplotGrob(plot)
   matches <- grepl("panel", out$layout$name)
   out$layout <- out$layout[matches, , drop = FALSE]

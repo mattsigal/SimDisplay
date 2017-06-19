@@ -29,10 +29,9 @@ simTable <- function(dat, by = NULL,
                      upper.bound = .075, lower.bound = .025,
                      colnames = NULL, lucid = TRUE, digits = 2, caption = NULL){
   # Simple Dataframe:
-  df <- simplifyDf(dat)
-
   groupColumns <- get_design_levels(dat)
   dataColumns <- get_sim_levels(dat)
+  df <- data.frame(dat[,c(groupColumns, dataColumns)])
 
   # Collapse Dataframe if needed:
   if (!is.null(by)) {

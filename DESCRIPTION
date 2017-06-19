@@ -18,7 +18,8 @@ Depends:
 Imports:
     methods,
     reshape2,
-    xtable
+    xtable,
+    grid
 Suggests:
     testthat,
     knitr

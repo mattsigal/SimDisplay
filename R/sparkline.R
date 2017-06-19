@@ -17,8 +17,14 @@
 sparkline <- function(x){
   pdat <- data.frame(Value = as.numeric(x),
                      Method = factor(seq(1, length(as.numeric(x)))))
-  ggplot(pdat, aes(y = Value,
-                   x = Method,
-                   group = 1)) +
-    geom_line() + theme_spark()
+  plot <- ggplot(pdat, aes(y = Value,
+                           x = Method,
+                           group = 1)) +
+    geom_line(size = 1.5) + theme_spark()
+  out <- ggplotGrob(plot)
+  matches <- grepl("panel", out$layout$name)
+  out$layout <- out$layout[matches, , drop = FALSE]
+  out$grobs <- out$grobs[matches]
+  grid::grid.newpage()
+  grid::grid.draw(out)
 }

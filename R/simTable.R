@@ -27,7 +27,7 @@
 #'
 simTable <- function(dat, by = NULL,
                      upper.bound = .075, lower.bound = .025,
-                     colnames = NULL, digits = 2, caption = NULL){
+                     colnames = NULL, lucid = TRUE, digits = 2, caption = NULL){
   # Simple Dataframe:
   df <- simplifyDf(dat)
 

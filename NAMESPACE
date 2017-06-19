@@ -3,7 +3,7 @@
 S3method(summary,SimDesign)
 export(SimAnovaMV)
 export(convert_df)
-export(round_sim)
+export(roundSim)
 export(shinySim)
 export(simTable)
 export(simTablePlot)

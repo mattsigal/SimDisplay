@@ -7,7 +7,8 @@
 #' @param upper.bound An \code{integer} value indicating the upper limit.
 #' @param lower.bound An \code{integer} value indicating the lower limit.
 #' @param colnames An optional \code{character} vector indicating column names to use in the output.
-#' @param digits Display how many significant digits?
+#' @param lucid Should results be printed? This converts results to characters of same length.
+#' @param digits Display lucid results to how many significant digits?
 #' @param caption A \code{character} string indicating caption.
 #'
 #' @return A character \code{vector}.
@@ -53,9 +54,11 @@ simTable <- function(dat, by = NULL,
   # Get cells to emphasize:
   emph <- suppressWarnings(which(df > upper.bound | df < lower.bound, arr.ind = TRUE))
 
-  # Convert variables to character:
-  i <- sapply(df, is.numeric)
-  df[i] <- lapply(df[i], round_sim, digits = digits)
+  # If lucid, convert variables to character:
+  if (lucid) {
+    i <- sapply(df, is.numeric)
+    df[i] <- lapply(df[i], roundSim, digits = digits)
+  }
 
   # Add highlighting:
   highlights <- paste0('\\textbf{', df[emph], '}')

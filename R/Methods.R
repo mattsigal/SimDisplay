@@ -30,7 +30,7 @@ summary.SimDesign <- function(x, digits = 3, percent = FALSE) {
   out <- list()
   for (i in 1:length(groupColumns)){
     res <- ddply(x, groupColumns[i],
-                 function(x) round_sim(colMeans(x[dataColumns]),
+                 function(x) roundSim(colMeans(x[dataColumns]),
                                        digits = digits,
                                        percent = percent))
     out[[i]] <- res

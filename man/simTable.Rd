@@ -18,9 +18,11 @@ simTable(dat, by = NULL, upper.bound = 0.075, lower.bound = 0.025,
 
 \item{colnames}{An optional \code{character} vector indicating column names to use in the output.}
 
-\item{digits}{Display how many significant digits?}
+\item{digits}{Display lucid results to how many significant digits?}
 
 \item{caption}{A \code{character} string indicating caption.}
+
+\item{lucid}{Should results be printed? This converts results to characters of same length.}
 }
 \value{
 A character \code{vector}.

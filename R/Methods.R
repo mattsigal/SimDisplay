@@ -28,9 +28,7 @@ summary.SimDesign <- function(object, digits = 3, percent = FALSE, ...) {
   if (!("SimDesign" %in% class(object)))
     stop("This object is not of class SimDesign. See convert_df().")
 
-  groupColumns <- get_design_levels(object)
-  dataColumns <- get_sim_levels(object)
-  df <- data.frame(object[, c(groupColumns, dataColumns)])
+  df <- simplifyDf(Brown1974)
   out <- vector('list', length(groupColumns))
 
   for (i in 1:length(groupColumns)){

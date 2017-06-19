@@ -29,7 +29,7 @@ simTable <- function(dat, by = NULL,
                      upper.bound = .075, lower.bound = .025,
                      colnames = NULL, digits = 2, caption = NULL){
   # Simple Dataframe:
-  df <- simplifyDf(Brown1974)
+  df <- simplifyDf(dat)
 
   # Collapse Dataframe if needed:
   if (!is.null(by)) {

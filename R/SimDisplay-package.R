@@ -11,7 +11,7 @@
 #' @aliases SimDisplay
 #' @title SimDisplay - Methods for visualizing complex tables.
 #' @author Matthew Sigal \email{matthewsigal@@gmail.com}
-#' @import shiny methods ggplot2 SimDesign
+#' @import stats shiny methods ggplot2 SimDesign plyr reshape2 xtable
 #' @docType package
 #' @keywords package
 NULL

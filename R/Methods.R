@@ -3,7 +3,10 @@
 #' \code{summary.SimDesign} is a default method for summarizing a
 #' \code{data.frame} of class \code{SimDesign}.
 #'
-#' @param x A \code{data.frame} object, of class \code{SimDesign}.
+#' @param object A \code{data.frame} object, of class \code{SimDesign}
+#' @param digits TODO
+#' @param percent TODO
+#' @param ... TODO
 #'
 #' @return NULL
 #'
@@ -20,14 +23,14 @@
 #' summary(power)
 #' }
 #'
-summary.SimDesign <- function(x, digits = 3, percent = FALSE) {
-  if (!("SimDesign" %in% class(x)))
-    return("This object is not of class SimDesign. See convert_df().")
+summary.SimDesign <- function(object, digits = 3, percent = FALSE, ...) {
+  if (!("SimDesign" %in% class(object)))
+    stop("This object is not of class SimDesign. See convert_df().")
 
-  groupColumns <- SimDisplay:::get_design_levels(x)
-  dataColumns <- SimDisplay:::get_sim_levels(x)
+  groupColumns <- SimDisplay:::get_design_levels(object)
+  dataColumns <- SimDisplay:::get_sim_levels(object)
 
-  out <- list()
+  out <- vector('list', length(groupColumns))
   for (i in 1:length(groupColumns)){
     res <- ddply(x, groupColumns[i],
                  function(x) roundSim(colMeans(x[dataColumns]),

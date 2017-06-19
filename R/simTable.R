@@ -28,20 +28,17 @@
 simTable <- function(dat, by = NULL,
                      upper.bound = .075, lower.bound = .025,
                      colnames = NULL, digits = 2, caption = NULL){
-  require(xtable)
-
   # Simple Dataframe:
-  groupColumns <- SimDisplay:::get_design_levels(dat)
-  dataColumns <- SimDisplay:::get_sim_levels(dat)
+  groupColumns <- get_design_levels(dat)
+  dataColumns <- get_sim_levels(dat)
   df <- data.frame(dat[,c(groupColumns, dataColumns)])
 
   # Collapse Dataframe if needed:
   if (!is.null(by)) {
-    library(reshape2)
-    mlt <- melt(df, id.vars = groupColumns)
+    mlt <- reshape2::melt(df, id.vars = groupColumns)
     groups <- groupColumns[!groupColumns %in% by]
     fm <- formula(paste0(paste0(groups, collapse = " + "), "~ variable"))
-    df <- dcast(mlt, fm, fun.aggregate = mean)
+    df <- reshape2::dcast(mlt, fm, fun.aggregate = mean)
   }
 
   # Apply custom column names and remove underscores (cause problems for LaTeX):
@@ -70,7 +67,7 @@ simTable <- function(dat, by = NULL,
   } else alignment <- c("c", rep("l", length(groupColumns)), rep("r", length(dataColumns)))
 
   # Generate table:
-  out <- xtable(df, label = NULL, caption = caption, align = alignment)
+  out <- xtable::xtable(df, label = NULL, caption = caption, align = alignment)
 
   print(out, type='latex',
         sanitize.text.function=identity,

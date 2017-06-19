@@ -41,7 +41,7 @@ sim_design_check <- function(x){
     des_levels <- get_design_levels(x)
     simDat <- x[c(des_levels, sim_levels)]
     simDat[,des_levels] <- lapply(simDat[,des_levels], as.factor)
-  } else return("Object is not of class SimDesign")
+  } else stop("Object is not of class SimDesign")
 
   return(simDat)
 }

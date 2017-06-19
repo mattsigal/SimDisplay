@@ -21,6 +21,7 @@
 }
 \examples{
 \dontrun{
+data(Brown1974)
 summary(Brown1974)
 type1 <- subset(Brown1974, var_ratio == 1)
 power <- subset(Brown1974, var_ratio != 1)

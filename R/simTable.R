@@ -31,6 +31,9 @@ simTable <- function(dat, by = NULL,
   # Simple Dataframe:
   df <- simplifyDf(dat)
 
+  groupColumns <- get_design_levels(dat)
+  dataColumns <- get_sim_levels(dat)
+
   # Collapse Dataframe if needed:
   if (!is.null(by)) {
     mlt <- reshape2::melt(df, id.vars = groupColumns)

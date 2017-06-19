@@ -45,3 +45,24 @@ sim_design_check <- function(x){
 
   return(simDat)
 }
+
+
+# theme_spark()
+# A ggplot2 theme that is extremely minimal, used primarily for sparklines.
+#
+theme_spark <- function(){
+  min <- ggplot2::theme_minimal()
+  customization <- ggplot2::theme(
+        axis.line=element_blank(),
+        axis.text.x=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks=element_blank(),
+        axis.title.x=element_blank(),
+        axis.title.y=element_blank(),
+        legend.position="none",
+        panel.background=element_blank(),
+        panel.border=element_rect(colour = "black", fill = NA),
+        panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),plot.background=element_blank())
+  ggplot2::`%+replace%`(min, customization)
+}

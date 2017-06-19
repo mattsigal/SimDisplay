@@ -9,11 +9,11 @@
 \arguments{
 \item{object}{A \code{data.frame} object, of class \code{SimDesign}}
 
-\item{digits}{TODO}
+\item{digits}{Number of digits to display, defaults to 3.}
 
-\item{percent}{TODO}
+\item{percent}{A \code{boolean} indicating if results be converted to percentages.}
 
-\item{...}{TODO}
+\item{...}{Optional arguments not currently utilized.}
 }
 \description{
 \code{summary.SimDesign} is a default method for summarizing a

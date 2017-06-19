@@ -30,11 +30,12 @@ summary.SimDesign <- function(object, digits = 3, percent = FALSE, ...) {
 
   groupColumns <- get_design_levels(object)
   dataColumns <- get_sim_levels(object)
-
+  df <- data.frame(object[, c(groupColumns, dataColumns)])
   out <- vector('list', length(groupColumns))
+
   for (i in 1:length(groupColumns)){
-    res <- plyr::ddply(object, groupColumns[i],
-                       function(x) roundSim(colMeans(object[dataColumns]),
+    res <- plyr::ddply(df, groupColumns[i],
+                       function(df) roundSim(colMeans(df[dataColumns]),
                                              digits = digits,
                                              percent = percent))
     out[[i]] <- res

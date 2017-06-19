@@ -4,9 +4,9 @@
 #' \code{data.frame} of class \code{SimDesign}.
 #'
 #' @param object A \code{data.frame} object, of class \code{SimDesign}
-#' @param digits TODO
-#' @param percent TODO
-#' @param ... TODO
+#' @param digits Number of digits to display, defaults to 3.
+#' @param percent A \code{boolean} indicating if results be converted to percentages.
+#' @param ... Optional arguments not currently utilized.
 #'
 #' @return NULL
 #'

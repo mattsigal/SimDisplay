@@ -1,6 +1,6 @@
 #' Emphasize cells from simulation results
 #'
-#' \code{simTable} takes a \code{SimDesign} dataframe object, and returns a
+#' \code{simTable} takes a \code{SimDesign} dataframe object, and returns a LaTeX table.
 #'
 #' @param dat A \code{data.frame} object of \code{class(SimDesign)}.
 #' @param by A \code{character} value indicating a factor variable to collapse results by.

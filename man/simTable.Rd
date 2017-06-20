@@ -28,7 +28,7 @@ simTable(dat, by = NULL, upper.bound = 0.075, lower.bound = 0.025,
 A character \code{vector}.
 }
 \description{
-\code{simTable} takes a \code{SimDesign} dataframe object, and returns a
+\code{simTable} takes a \code{SimDesign} dataframe object, and returns a LaTeX table.
 }
 \examples{
 \dontrun{

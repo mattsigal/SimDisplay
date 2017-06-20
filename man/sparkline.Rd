@@ -23,6 +23,7 @@ A \code{ggplot2} graphic object.
 \dontrun{
 data(Brown1974)
 sparkline(Brown1974[1,4:9])
+sparkline(Brown1974[64,4:9])
 }
 
 }

@@ -4,10 +4,14 @@
 \alias{sparkline}
 \title{Generate sparkline graphic}
 \usage{
-sparkline(x)
+sparkline(x, min = 0, max = 1)
 }
 \arguments{
 \item{x}{A \code{vector} object, pertaining to a row from a tabular display.}
+
+\item{min}{Numeric input, specifying the minimum value for the y-axis}
+
+\item{max}{Numeric input, specifying the maximum value for the y-axis}
 }
 \value{
 A \code{ggplot2} graphic object.
@@ -18,6 +22,7 @@ A \code{ggplot2} graphic object.
 \examples{
 \dontrun{
 data(Brown1974)
+sparkline(Brown1974[1,4:9])
 }
 
 }

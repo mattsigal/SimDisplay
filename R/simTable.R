@@ -46,7 +46,7 @@ simTable <- function(dat, by = NULL,
     cn <- colnames(df)
   } else cn <- colnames
 
-  colnames(df) <- sub("_", ".", cn)
+  colnames(df) <- gsub(pattern = "_", replacement=paste("\\\\", "_", sep=""), cn)
 
   # Get cells to emphasize:
   emph <- suppressWarnings(which(df > upper.bound | df < lower.bound, arr.ind = TRUE))

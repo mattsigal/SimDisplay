@@ -5,7 +5,8 @@
 \title{Emphasize cells from simulation results}
 \usage{
 simTable(dat, by = NULL, upper.bound = 0.075, lower.bound = 0.025,
-  colnames = NULL, lucid = TRUE, digits = 2, caption = NULL)
+  colnames = NULL, lucid = TRUE, digits = 2, caption = NULL,
+  rm = NULL)
 }
 \arguments{
 \item{dat}{A \code{data.frame} object of \code{class(SimDesign)}.}
@@ -23,6 +24,8 @@ simTable(dat, by = NULL, upper.bound = 0.075, lower.bound = 0.025,
 \item{digits}{Display lucid results to how many significant digits?}
 
 \item{caption}{A \code{character} string indicating caption.}
+
+\item{rm}{A \code{character} vector indicating the names of any columns to hide from the table.}
 }
 \value{
 A character \code{vector}.
@@ -37,6 +40,8 @@ Brown1974$REPLICATIONS <- Brown1974$SIM_TIME <- Brown1974$COMPLETED <- Brown1974
 TypeI <- subset(Brown1974, var_ratio == 1) # Separate type I error rate conditions
 Power <- subset(Brown1974, var_ratio != 1) # from power conditions
 simTable(TypeI)
+simTable(TypeI, by = 'sample_size')
+simTable(TypeI, by = 'sample_size', rm = 'var_ratio')
 }
 
 }

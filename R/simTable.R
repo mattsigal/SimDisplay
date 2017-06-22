@@ -10,6 +10,7 @@
 #' @param lucid Should results be printed? This converts results to characters of same length.
 #' @param digits Display lucid results to how many significant digits?
 #' @param caption A \code{character} string indicating caption.
+#' @param rm A \code{character} vector indicating the names of any columns to hide from the table.
 #'
 #' @return A character \code{vector}.
 #'
@@ -23,15 +24,22 @@
 #' TypeI <- subset(Brown1974, var_ratio == 1) # Separate type I error rate conditions
 #' Power <- subset(Brown1974, var_ratio != 1) # from power conditions
 #' simTable(TypeI)
+#' simTable(TypeI, by = 'sample_size')
+#' simTable(TypeI, by = 'sample_size', rm = 'var_ratio')
 #' }
 #'
 simTable <- function(dat, by = NULL,
                      upper.bound = .075, lower.bound = .025,
-                     colnames = NULL, lucid = TRUE, digits = 2, caption = NULL){
+                     colnames = NULL, lucid = TRUE, digits = 2,
+                     caption = NULL, rm = NULL){
   # Simple Dataframe:
   groupColumns <- get_design_levels(dat)
   dataColumns <- get_sim_levels(dat)
-  df <- data.frame(dat[,c(groupColumns, dataColumns)])
+  df <- data.frame(dat[,c(groupColumns, dataColumns)]) # simplify dataframe object
+
+  df <- df[ , !(names(df) %in% rm), drop = FALSE] # remove unwanted columns
+  groupColumns <- groupColumns[!(groupColumns %in% rm)]
+  dataColumns <- dataColumns[!(dataColumns %in% rm)]
 
   # Collapse Dataframe if needed:
   if (!is.null(by)) {
@@ -53,8 +61,7 @@ simTable <- function(dat, by = NULL,
 
   # If lucid, convert variables to character:
   if (lucid) {
-    i <- sapply(df, is.numeric)
-    df[i] <- lapply(df[i], roundSim, digits = digits)
+    df[dataColumns] <- lapply(df[dataColumns], roundSim, digits = digits)
   }
 
   # Add highlighting:
@@ -62,9 +69,9 @@ simTable <- function(dat, by = NULL,
   df[emph] <- highlights
 
   # Left align factors, right align numeric output:
-  if (!is.null(by)) {
-    alignment <- c("c", rep("l", length(groupColumns)-1), rep("r", length(dataColumns)))
-  } else alignment <- c("c", rep("l", length(groupColumns)), rep("r", length(dataColumns)))
+  if (is.null(by)){
+    alignment <- c("c", rep("l", length(groupColumns)), rep("r", length(dataColumns)))
+  } else alignment <- c("c", rep("l", length(groupColumns)-1), rep("r", length(dataColumns)))
 
   # Generate table:
   out <- xtable::xtable(df, label = NULL, caption = caption, align = alignment)

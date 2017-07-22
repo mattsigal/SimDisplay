@@ -10,6 +10,8 @@
 #' @param numrow An \code{integer} value indicating the number of rows to use in the facet grid.
 #' @param cols A \code{character} value indicating the palette to use.
 #' @param main_title A \code{character} value for the main title of the plot.
+#' @param xlab A \code{character} value for the x-axis label.
+#' @param ylab A \code{character} value for the y-axis label.
 #'
 #' @return A \code{ggplot2} object.
 #'
@@ -21,6 +23,12 @@
 #' data(Brown1974)
 #' dat <- subset(Brown1974, var_ratio != 1)
 #' tableShade(dat, table_vars = c("distribution", "var_ratio"))
+#'
+#' # Adding optional arguments:
+#' tableShade(dat, table_vars = c("distribution", "var_ratio"),
+#'            main_title = "Power Rates by Variance Ratio and Distribution",
+#'            xlab = "Variance Ratio", ylab = "Outcome Variable",
+#'            numrow = 1, ndigit = 3, colswitch = .7, cols = "Reds")
 #' }
 #'
 
@@ -29,7 +37,8 @@ tableShade <- function(dat,
                        method = "mean",
                        ndigit = 2, colswitch = .6,
                        numrow = 2,
-                       cols = "Blues", main_title = "Shaded Table"){
+                       cols = "Blues", main_title = "Shaded Table",
+                       xlab = NULL, ylab = NULL){
   # LIBRARIES
   require(reshape2)
   require(RColorBrewer)
@@ -66,19 +75,28 @@ tableShade <- function(dat,
                  aes_(x = as.name(table_vars[2]))) +
                  aes(y = variable,
                      fill = value) +
-    facet_wrap(as.character(table_vars[1]), nrow = numrow) +
+    facet_wrap(as.character(table_vars[1]),
+               nrow = numrow) +
     geom_tile() +
     scale_fill_gradientn(colours = myPalette(100)) +
     coord_equal() +
-    ggtitle(main_title)
+    ggtitle(main_title) +
+    geom_text(data = dat %>%
+                group_by(as.character(table_vars[1])) %>%
+                dplyr::filter(value < colswitch),
+                   aes(label = rval), hjust = 'right', nudge_x = .4, size = 5, color = 'black') +
+    geom_text(data = dat %>%
+                group_by(as.character(table_vars[1])) %>%
+                dplyr::filter(value >= colswitch),
+              aes(label = rval), hjust = 'right', nudge_x = .4, size = 5, color = 'white')
 
-  #FIX THIS:
-    # geom_text(data = dat %>% group_by(as.character(table_vars[1])) %>% filter(value < .6),
-    #           aes(label = roundSim(value,  digits = 2)),
-    #           hjust = 'right', nudge_x = .4, size = 5, color = 'black') +
-    # geom_text(data = dat %>% group_by(as.character(table_vars[1])) %>% filter(dat$value >= .6),
-    #           aes(label = roundSim(value,  digits = 2)),
-    #           hjust = 'right', nudge_x = .4, size = 5, color = 'white')
+  # ADD AXIS LABELS IF PROVIDED:
+  if (!is.null(xlab)) {
+    pdat <- pdat + xlab(xlab)
+  }
+  if (!is.null(ylab)) {
+    pdat <- pdat + ylab(ylab)
+  }
 
   return(pdat)
 }

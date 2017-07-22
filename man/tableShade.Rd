@@ -6,7 +6,7 @@
 \usage{
 tableShade(dat, table_vars = NULL, method = "mean", ndigit = 2,
   colswitch = 0.6, numrow = 2, cols = "Blues",
-  main_title = "Shaded Table")
+  main_title = "Shaded Table", xlab = NULL, ylab = NULL)
 }
 \arguments{
 \item{dat}{A \code{data.frame} object of \code{class(SimDesign)}.}
@@ -24,6 +24,10 @@ tableShade(dat, table_vars = NULL, method = "mean", ndigit = 2,
 \item{cols}{A \code{character} value indicating the palette to use.}
 
 \item{main_title}{A \code{character} value for the main title of the plot.}
+
+\item{xlab}{A \code{character} value for the x-axis label.}
+
+\item{ylab}{A \code{character} value for the y-axis label.}
 }
 \value{
 A \code{ggplot2} object.
@@ -36,6 +40,12 @@ A \code{ggplot2} object.
 data(Brown1974)
 dat <- subset(Brown1974, var_ratio != 1)
 tableShade(dat, table_vars = c("distribution", "var_ratio"))
+
+# Adding optional arguments:
+tableShade(dat, table_vars = c("distribution", "var_ratio"),
+           main_title = "Power Rates by Variance Ratio and Distribution",
+           xlab = "Variance Ratio", ylab = "Outcome Variable",
+           numrow = 1, ndigit = 3, colswitch = .7, cols = "Reds")
 }
 
 }

@@ -37,7 +37,7 @@ tableShade <- function(dat,
                        method = "mean",
                        ndigit = 2, colswitch = .6,
                        numrow = 2,
-                       cols = "Blues", main_title = "Shaded Table",
+                       colours = "Blues", main_title = "Shaded Table",
                        xlab = NULL, ylab = NULL){
   # LIBRARIES
   require(reshape2)
@@ -46,7 +46,7 @@ tableShade <- function(dat,
   require(dplyr)
 
   # GENERATE PALETTE
-  myPalette <- colorRampPalette(brewer.pal(9, cols))
+  myPalette <- colorRampPalette(brewer.pal(9, colours))
 
   # SIMPLIFY DATAFRAME OBJECT
   groupColumns <- get_design_levels(dat)

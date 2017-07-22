@@ -5,7 +5,7 @@
 \title{Generate a shaded table.}
 \usage{
 tableShade(dat, table_vars = NULL, method = "mean", ndigit = 2,
-  colswitch = 0.6, numrow = 2, cols = "Blues",
+  colswitch = 0.6, numrow = 2, colours = "Blues",
   main_title = "Shaded Table", xlab = NULL, ylab = NULL)
 }
 \arguments{
@@ -21,13 +21,13 @@ tableShade(dat, table_vars = NULL, method = "mean", ndigit = 2,
 
 \item{numrow}{An \code{integer} value indicating the number of rows to use in the facet grid.}
 
-\item{cols}{A \code{character} value indicating the palette to use.}
-
 \item{main_title}{A \code{character} value for the main title of the plot.}
 
 \item{xlab}{A \code{character} value for the x-axis label.}
 
 \item{ylab}{A \code{character} value for the y-axis label.}
+
+\item{cols}{A \code{character} value indicating the palette to use.}
 }
 \value{
 A \code{ggplot2} object.

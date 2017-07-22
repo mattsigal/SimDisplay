@@ -28,7 +28,7 @@
 #' tableShade(dat, table_vars = c("distribution", "var_ratio"),
 #'            main_title = "Power Rates by Variance Ratio and Distribution",
 #'            xlab = "Variance Ratio", ylab = "Outcome Variable",
-#'            numrow = 1, ndigit = 3, colswitch = .7, cols = "Reds")
+#'            numrow = 1, ndigit = 1, colswitch = .7, cols = "Reds")
 #' }
 #'
 

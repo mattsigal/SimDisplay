@@ -70,13 +70,15 @@ tableShade <- function(dat,
     geom_tile() +
     scale_fill_gradientn(colours = myPalette(100)) +
     coord_equal() +
-    ggtitle(main_title) +
-    geom_text(data = dat %>% group_by(as.character(table_vars[1])) %>% filter(value < colswitch),
-              aes(label = roundSim(value,  digits = 2)),
-              hjust = 'right', nudge_x = .4, size = 5, color = 'black') +
-    geom_text(data = dat %>% group_by(as.character(table_vars[1])) %>% filter(value >= colswitch),
-              aes(label = roundSim(value,  digits = 2)),
-              hjust = 'right', nudge_x = .4, size = 5, color = 'white')
+    ggtitle(main_title)
+
+  #FIX THIS:
+    # geom_text(data = dat %>% group_by(as.character(table_vars[1])) %>% filter(value < .6),
+    #           aes(label = roundSim(value,  digits = 2)),
+    #           hjust = 'right', nudge_x = .4, size = 5, color = 'black') +
+    # geom_text(data = dat %>% group_by(as.character(table_vars[1])) %>% filter(dat$value >= .6),
+    #           aes(label = roundSim(value,  digits = 2)),
+    #           hjust = 'right', nudge_x = .4, size = 5, color = 'white')
 
   return(pdat)
 }

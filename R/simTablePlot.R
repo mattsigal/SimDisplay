@@ -18,7 +18,7 @@
 #' simTableplot(TypeI)
 #' simTableplot(TypeI,
 #'              design_vars = c("distribution", "sample_size"),
-#'              main_title = "Type I error errors by distribution and sample size.")
+#'              main_title = "Type I error rates by distribution and sample size.")
 #' }
 #'
 

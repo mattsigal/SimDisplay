@@ -1,7 +1,7 @@
 Package: SimDisplay
-Version: 0.2.0
+Version: 0.3.0
 Type: Package
-Title: Visualization of Monte Carlo Simulation Study Data
+Title: Visualization of Monte Carlo simulation study data
 Authors@R: c(person("Matthew", "Sigal", email = "matthewsigal@gmail.com", role = c("aut", "cre")),
              person("Phil", family="Chalmers", role=c('ctb')))
 Description: SimDisplay is useful for the visualization and summarization of
@@ -19,7 +19,9 @@ Imports:
     methods,
     reshape2,
     xtable,
-    grid
+    grid,
+    tableplot,
+    RColorBrewer
 Suggests:
     testthat,
     knitr

@@ -47,7 +47,7 @@ NULL
 #' type I error rates and power for various methods for detecting heterogeneity of variance.
 #'
 #' \itemize{
-#'   \item \code{distribution}. The generating distribution: Gaussian, t(4), chi-square (4), and Cauchy
+#'   \item \code{distribution}. The generating distribution: Gaussian, t(4), and chi-square (4)
 #'   \item \code{sample_size}. The sample size conditions in the study (40/40, 10/10, 20/40, and 10/20)
 #'   \item \code{var_ratio}. The variance ratio between the groups (.25, .5, 1, 2, 4)
 #'   \item \code{F}. The EDR (number of cells with p-values less than .05) for the F-test.
@@ -66,5 +66,5 @@ NULL
 #' @keywords datasets
 #' @name Brown1974
 #' @usage data(Brown1974)
-#' @format A data frame with 64 rows and 13 variables
+#' @format A data frame with 48 rows and 13 variables
 NULL

@@ -19,7 +19,7 @@ type I error rates and power for various methods for detecting heterogeneity of 
   \item \code{sample_size}. The sample size conditions in the study (40/40, 10/10, 20/40, and 10/20)
   \item \code{var_ratio}. The variance ratio between the groups (.25, .5, 1, 2, 4)
   \item \code{F}. The EDR (number of cells with p-values less than .05) for the F-test.
-  \item \code{Jacknife}. The EDR for the F-test jacknife procedure.
+  \item \code{Jackknife}. The EDR for the F-test jackknife procedure.
   \item \code{Layard}. The EDR for the Layard procedure.
   \item \code{Levene}. The EDR for the standard Levene procedure.
   \item \code{W10}. The EDR for the Levene test using a ten percent trimmed mean.

@@ -32,6 +32,7 @@ simTable <- function(dat, by = NULL,
                      upper.bound = .075, lower.bound = .025,
                      colnames = NULL, lucid = TRUE, digits = 2,
                      caption = NULL, rm = NULL){
+
   # Simple Dataframe:
   groupColumns <- get_design_levels(dat)
   dataColumns <- get_sim_levels(dat)

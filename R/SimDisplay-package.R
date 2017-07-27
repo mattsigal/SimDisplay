@@ -68,3 +68,29 @@ NULL
 #' @usage data(Brown1974)
 #' @format A data frame with 48 rows and 13 variables
 NULL
+
+#' Hallgren 2013 Simulation Results
+#'
+#' \code{Hallgren2013} is a a dataset (of class data.frame as well as SimDesign) containing
+#' the standard output from \code{\link{SimDesign}}. This simulation study pertains to the
+#' testing mediation in properly and improperly specified models.
+#'
+#' \itemize{
+#'   \item \code{N}. Sample size was manipulated at 3 levels: 30, 100, 300.
+#'   \item \code{a}. Coefficients for regression path a was manipulated at three levels: -0.3, 0.0, 0.3
+#'   \item \code{b}. Coefficients for regression path b was manipulated at three levels: -0.3, 0.0, 0.3
+#'   \item \code{cp}. Coefficients for regression path c' was manipulated at three levels: -0.2, 0.0, 0.2.
+#'   \item \code{XMY.p}. The EDR for the properly specified model.
+#'   \item \code{XYM.p}. The EDR for the improperly specified model.
+#'   \item \code{REPLICATIONS}. The number of replications for each cell.
+#'   \item \code{SIM_TIME}. The amount of time each cell took to run.
+#'   \item \code{COMPLETED}. The date and time the simulation was run.
+#'   \item \code{SEED}. The seed values used for each condition.
+#' }
+#'
+#' @docType data
+#' @keywords datasets
+#' @name Hallgren2013
+#' @usage data(Hallgren2013)
+#' @format A data frame with 81 rows and 10 variables
+NULL

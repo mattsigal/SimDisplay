@@ -4,6 +4,7 @@
 #'
 #' @param dat A \code{data.frame} object of \code{class(SimDesign)}.
 #' @param by A \code{character} value indicating a factor variable to collapse results by.
+#' @param highlight A \code{boolean} value indicating if values should be highlighted based upon \code{upper.bound} and \code{lower.bound}.
 #' @param upper.bound An \code{integer} value indicating the upper limit.
 #' @param lower.bound An \code{integer} value indicating the lower limit.
 #' @param colnames An optional \code{character} vector indicating column names to use in the output.
@@ -29,6 +30,7 @@
 #' }
 #'
 simTable <- function(dat, by = NULL,
+                     highlight = TRUE,
                      upper.bound = .075, lower.bound = .025,
                      colnames = NULL, lucid = TRUE, digits = 2,
                      caption = NULL, rm = NULL){
@@ -66,8 +68,10 @@ simTable <- function(dat, by = NULL,
   }
 
   # Add highlighting:
-  highlights <- paste0('\\textbf{', df[emph], '}')
-  df[emph] <- highlights
+  if (highlight) {
+    highlights <- paste0('\\textbf{', df[emph], '}')
+    df[emph] <- highlights
+  }
 
   # Left align factors, right align numeric output:
   if (is.null(by)){

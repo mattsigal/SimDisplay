@@ -4,14 +4,16 @@
 \alias{simTable}
 \title{Emphasize cells from simulation results}
 \usage{
-simTable(dat, by = NULL, upper.bound = 0.075, lower.bound = 0.025,
-  colnames = NULL, lucid = TRUE, digits = 2, caption = NULL,
-  rm = NULL)
+simTable(dat, by = NULL, highlight = TRUE, upper.bound = 0.075,
+  lower.bound = 0.025, colnames = NULL, lucid = TRUE, digits = 2,
+  caption = NULL, rm = NULL)
 }
 \arguments{
 \item{dat}{A \code{data.frame} object of \code{class(SimDesign)}.}
 
 \item{by}{A \code{character} value indicating a factor variable to collapse results by.}
+
+\item{highlight}{A \code{boolean} value indicating if values should be highlighted based upon \code{upper.bound} and \code{lower.bound}.}
 
 \item{upper.bound}{An \code{integer} value indicating the upper limit.}
 

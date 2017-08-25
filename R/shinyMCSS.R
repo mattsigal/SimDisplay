@@ -104,8 +104,8 @@ shinyMCSS <- function(filename = NULL, export = FALSE){
       cols <- subset(dat,
                      select = c(input$design, input$response, input$meta),
                      drop = FALSE)
-      # THIS SHOULD ALSO UTILIZE THE ROW FILTERS THAT ARE GENERATED BELOW!!!
 
+      # FIX: THIS SHOULD ALSO UTILIZE THE ROW FILTERS THAT ARE GENERATED BELOW!!!
       for (i in 1:length(input$design)){
         var <- input$design[[i]]
         if (!is.null(input[[var]])){
@@ -114,14 +114,15 @@ shinyMCSS <- function(filename = NULL, export = FALSE){
 
         }
       }
-
       return(cols)
     })
 
     # RENDER FILTERS FOR DESIGN VARIABLES:
-    first_run <<- TRUE # FLAG FOR SCRIPT INITIALIZATION
+    filters_list <- new.env()
+    filters_list$first_run <- TRUE # FLAG FOR SCRIPT INITIALIZATION
     output$filters <- renderUI({
-      if (first_run){
+      if (filters_list$first_run){
+        # print("first_run triggered")
         num_filters <- isolate(length(input$design))
         filters <- list()
         for (i in 1:num_filters){
@@ -131,10 +132,10 @@ shinyMCSS <- function(filename = NULL, export = FALSE){
                                              choices = levels(dat_subset()[[filt]]),
                                              selected = levels(dat_subset()[[filt]]))
         }
-        filters_save <<- filters
-        first_run <<- FALSE
+        filters_list$filters_save <- filters
+        filters_list$first_run <- FALSE
         filters
-      } else filters_save
+      } else filters_list$filters_save
     })
 
     # RENDER DATA TABLE:

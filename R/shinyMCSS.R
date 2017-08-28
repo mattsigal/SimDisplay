@@ -70,7 +70,8 @@ shinyMCSS <- function(dataframe = NULL, export = FALSE, browser = TRUE){
       checkboxGroupInput(inputId = "response", label = "Response Variables",
                          choices = rvars, selected = rvars),
       checkboxInput(inputId = "meta",
-                    label = "Show meta variables?", value = FALSE)),
+                    label = "Show meta variables?", value = FALSE),
+      width = 2),
     mainPanel(
       DT::dataTableOutput("data"))
   )
@@ -113,7 +114,10 @@ shinyMCSS <- function(dataframe = NULL, export = FALSE, browser = TRUE){
     })
 
     output$data <- DT::renderDataTable({
-      DT::datatable(dat_subset()[!(colnames(dat_subset()) %in% c("int7rn4l1d"))], rownames = FALSE)
+      DT::datatable(dat_subset()[!(colnames(dat_subset()) %in% c("int7rn4l1d"))],
+                    rownames = FALSE,
+                    selection = list(target = 'row+column'),
+                    caption = 'Monte Carlo Simulation results datatable:')
     })
   }
   runApp(list(ui = ui, server = server), launch.browser = browser)

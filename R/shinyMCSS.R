@@ -66,20 +66,47 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 1, export = 
                     int7rn4l1d = dat$int7rn4l1d)
 
   ## UI #############################
-  ui = fluidPage(
-    titlePanel("Shiny SimDisplay"),
-    sidebarPanel(
-      checkboxGroupInput(inputId = "design", label = "Design Variables",
-                         choices = dvars, selected = dvars),
-      uiOutput("filters"),
-      checkboxGroupInput(inputId = "response", label = "Response Variables",
-                         choices = rvars, selected = rvars),
-      checkboxInput(inputId = "meta",
-                    label = "Show meta variables?", value = FALSE),
-      width = 2),
-    mainPanel(
-      DT::dataTableOutput("data"))
-  )
+  ui = navbarPage("Shiny SimDisplay",
+    tabPanel("Data Table", value = "init", icon = icon("dashboard"),
+             sidebarLayout(
+               sidebarPanel(
+                 h4("Data Filters:"),
+                 # Checkbox inputs for design, response, and meta variables:
+                 checkboxGroupInput(inputId = "design",
+                                    label = "Design Variables",
+                                    choices = dvars,
+                                    selected = dvars),
+                 uiOutput("filters"),
+                 checkboxGroupInput(inputId = "response",
+                                    label = "Response Variables",
+                                    choices = rvars,
+                                    selected = rvars),
+                 checkboxInput(inputId = "meta",
+                               label = "Show meta variables?", value = FALSE),
+                 width = 2),
+               mainPanel(
+                 DT::dataTableOutput("data")
+               ))
+             ),
+    tabPanel("Models", value = "models", icon = icon("table"),
+             sidebarLayout(
+               sidebarPanel(
+                 h4("Model options..."),
+                 width = 2),
+               mainPanel(
+                 h4("insert model here")
+               ))
+             ),
+    tabPanel("Visualizations", value = "dataviz", icon = icon("line-chart"),
+             sidebarLayout(
+               sidebarPanel(
+                 h4("Customizations:"),
+                 width = 2),
+               mainPanel(
+                 h4("insert graphics here")
+               ))
+             ),
+    inverse = TRUE, collapsible = TRUE)
 
   ## SERVER #########################
   server = function(input, output, session) {

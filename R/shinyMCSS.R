@@ -9,6 +9,11 @@
 #' @param dataframe an optional \code{dataframe} object of class \code{SimDesign}.
 #'   If omitted, the app will load \code{data(Brown1974)}.
 #'
+#' @param percents \code{Boolean}, indicating whether to display numeric simulation
+#' results as percentages.
+#'
+#' @param ndigits \code{Integer}. If \code{percents} is true, how many digits should be printed?
+#'
 #' @param export \code{Boolean}, indicating whether to save the generated server
 #' and ui files to the current working directory.
 #'
@@ -34,7 +39,7 @@
 #' }
 
 
-shinyMCSS <- function(dataframe = NULL, export = FALSE, browser = TRUE){
+shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 1, export = FALSE, browser = TRUE){
   library(shiny)
   library(shinydashboard)
   library(DT)
@@ -94,6 +99,9 @@ shinyMCSS <- function(dataframe = NULL, export = FALSE, browser = TRUE){
       # SUBSET DATA COLUMNS BY DESIGN/META INPUTS
       if (input$meta){
         df <- dat[, c(input$design, input$response, mvars, "int7rn4l1d"), drop = FALSE]
+        if (class(df$SIM_TIME) == "numeric"){
+          df$SIM_TIME <- round(df$SIM_TIME, 2)
+        }
       } else df <- dat[, c(input$design, input$response, "int7rn4l1d"), drop = FALSE]
 
       # SUBSET DATA BY ROWS AND MERGE
@@ -117,8 +125,11 @@ shinyMCSS <- function(dataframe = NULL, export = FALSE, browser = TRUE){
       DT::datatable(dat_subset()[!(colnames(dat_subset()) %in% c("int7rn4l1d"))],
                     rownames = FALSE,
                     selection = list(target = 'row+column'),
-                    caption = 'Monte Carlo Simulation results datatable:')
+                    caption = 'Monte Carlo Simulation results datatable:',
+                    options = list(saveState = TRUE)) %>%
+        formatPercentage(input$response, digits = ndigits)
     })
+
   }
   runApp(list(ui = ui, server = server), launch.browser = browser)
 }

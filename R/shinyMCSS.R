@@ -33,11 +33,14 @@
 #' shinyMCSS(Brown1974)
 #' }
 
+
 shinyMCSS <- function(dataframe = NULL, export = FALSE, browser = TRUE){
   library(shiny)
   library(shinydashboard)
+  library(DT)
+  options(DT.options = list(paging=FALSE,
+                            dom = 'ltir'))
 
-  # Load data:
   # Load example dataset or passed dataframe:
   if (is.null(dataframe)) {
     .get.bf <- function(){
@@ -54,25 +57,28 @@ shinyMCSS <- function(dataframe = NULL, export = FALSE, browser = TRUE){
   mvars <- attributes(dat)$design_names$extra
   dat$int7rn4l1d <- 1:nrow(dat)
 
+  dat <- data.frame(dat[dvars], dat[rvars], dat[mvars],
+                    int7rn4l1d = dat$int7rn4l1d)
+
   ## UI #############################
   ui = fluidPage(
-    titlePanel("Dynamic filtering example"),
+    titlePanel("Shiny SimDisplay"),
     sidebarPanel(
       checkboxGroupInput(inputId = "design", label = "Design Variables",
                          choices = dvars, selected = dvars),
       uiOutput("filters"),
       checkboxGroupInput(inputId = "response", label = "Response Variables",
                          choices = rvars, selected = rvars),
-      checkboxInput(inputId = "meta", label = "Show meta variables?",
-                    value = FALSE)),
+      checkboxInput(inputId = "meta",
+                    label = "Show meta variables?", value = FALSE)),
     mainPanel(
-      dataTableOutput("data"))
+      DT::dataTableOutput("data"))
   )
 
   ## SERVER #########################
   server = function(input, output, session) {
 
-    # Determine checkboxes:
+    # GENERATE FILTER CHECKBOXES:
     output$filters <- renderUI({
       filters <- lapply(dvars[dvars %in% input$design], function(d) {
         list(inputId = d, label = d,
@@ -100,11 +106,14 @@ shinyMCSS <- function(dataframe = NULL, export = FALSE, browser = TRUE){
           } else df <- dfs[[1]]
         }
       }
+
+      # SORT DATA BY INTERNALID (default)
+      df <- df[order(df$int7rn4l1d),]
       return(df)
     })
 
-    output$data <- renderDataTable({
-      dat_subset()[!(colnames(dat_subset()) %in% c("int7rn4l1d"))]
+    output$data <- DT::renderDataTable({
+      DT::datatable(dat_subset()[!(colnames(dat_subset()) %in% c("int7rn4l1d"))], rownames = FALSE)
     })
   }
   runApp(list(ui = ui, server = server), launch.browser = browser)

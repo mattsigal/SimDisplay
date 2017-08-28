@@ -74,7 +74,7 @@ shinyMCSS <- function(dataframe = NULL, export = FALSE, browser = TRUE){
 
     # Determine checkboxes:
     output$filters <- renderUI({
-      filters <- lapply(dvars[dvars == input$design], function(d) {
+      filters <- lapply(dvars[dvars %in% input$design], function(d) {
         list(inputId = d, label = d,
              choices = levels(dat[[d]]),
              selected = levels(dat[[d]]))
@@ -109,4 +109,3 @@ shinyMCSS <- function(dataframe = NULL, export = FALSE, browser = TRUE){
   }
   runApp(list(ui = ui, server = server), launch.browser = browser)
 }
-

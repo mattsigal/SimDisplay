@@ -42,6 +42,7 @@
 shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 1, export = FALSE, browser = TRUE){
   library(shiny)
   library(shinydashboard)
+  library(car)
   library(DT)
   options(DT.options = list(paging=FALSE,
                             dom = 'ltir'))
@@ -65,13 +66,14 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 1, export = 
   dat <- data.frame(dat[dvars], dat[rvars], dat[mvars],
                     int7rn4l1d = dat$int7rn4l1d)
 
+  ncases <- nrow(dat) # Used to track and report if filters are functioning across tabs
+
   ## UI #############################
   ui = navbarPage("Shiny SimDisplay",
-    tabPanel("Data Table", value = "init", icon = icon("dashboard"),
+    tabPanel("Data Explorer", value = "init", icon = icon("dashboard"),
              sidebarLayout(
                sidebarPanel(
-                 h4("Data Filters:"),
-                 # Checkbox inputs for design, response, and meta variables:
+                 h4("Filters:"),
                  checkboxGroupInput(inputId = "design",
                                     label = "Design Variables",
                                     choices = dvars,
@@ -83,6 +85,9 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 1, export = 
                                     selected = rvars),
                  checkboxInput(inputId = "meta",
                                label = "Show meta variables?", value = FALSE),
+                 checkboxInput(inputId = "percents",
+                               label = "Show sim variables as percents?",
+                               value = percents),
                  width = 2),
                mainPanel(
                  DT::dataTableOutput("data")
@@ -91,19 +96,40 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 1, export = 
     tabPanel("Models", value = "models", icon = icon("table"),
              sidebarLayout(
                sidebarPanel(
-                 h4("Model options..."),
+                 h4("Model Options:"),
+                 uiOutput("mod_des"),
+                 uiOutput("mod_outcome"),
+                 checkboxInput(inputId = "all_int",
+                               label = "Add all interactions?", value = FALSE),
                  width = 2),
                mainPanel(
-                 h4("insert model here")
-               ))
-             ),
+                 fluidRow(
+                   h4("ANOVA Model Generator"),
+                   box(width = 12,
+                       verbatimTextOutput("models"))
+                 )
+               )
+             )),
     tabPanel("Visualizations", value = "dataviz", icon = icon("line-chart"),
              sidebarLayout(
                sidebarPanel(
-                 h4("Customizations:"),
+                 h4("Graphic Options:"),
+                 selectInput(inputId = "graphic",
+                             label = "Graphic Type:",
+                             choices = c("Shaded Table" = "shade",
+                                         "Boxplot" = "box",
+                                         "HE Plot" = "he"),
+                             multiple = FALSE,
+                             selectize = FALSE),
+                 conditionalPanel(condition = "input.graphic == 'shade'",
+                                  h4("SHADED TABLE SELECTED")),
+                 conditionalPanel(condition = "input.graphic == 'box'",
+                                  h4("BOXPLOT SELECTED")),
+                 conditionalPanel(condition="input.graphic == 'he'",
+                                  h4("HE PLOT SELECTED")),
                  width = 2),
                mainPanel(
-                 h4("insert graphics here")
+                 plotOutput("plot")
                ))
              ),
     inverse = TRUE, collapsible = TRUE)
@@ -111,17 +137,7 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 1, export = 
   ## SERVER #########################
   server = function(input, output, session) {
 
-    # GENERATE FILTER CHECKBOXES:
-    output$filters <- renderUI({
-      filters <- lapply(dvars[dvars %in% input$design], function(d) {
-        list(inputId = d, label = d,
-             choices = levels(dat[[d]]),
-             selected = levels(dat[[d]]))
-      })
-      lapply(filters, do.call, what = checkboxGroupInput)
-    })
-
-    # GENERATE REDUCED DATA TABLE:
+    # REACTIVE DATAFRAME:
     dat_subset <- reactive({
       # SUBSET DATA COLUMNS BY DESIGN/META INPUTS
       if (input$meta){
@@ -148,13 +164,107 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 1, export = 
       return(df)
     })
 
+    ## GENERATE UI ELEMENTS ###############
+
+    ## DATA EXPLORER TAB ###########
+    # DESIGN VARIABLE FILTER CHECKBOXES:
+    output$filters <- renderUI({
+      filters <- lapply(dvars[dvars %in% input$design], function(d) {
+        list(inputId = d, label = d,
+             choices = levels(dat[[d]]),
+             selected = levels(dat[[d]]))
+      })
+      lapply(filters, do.call, what = checkboxGroupInput)
+    })
+
+    ## ANOVA TAB ##################
+    # GENERATE MODEL DATA FILTERS:
+    output$mod_des <- renderUI({
+      checkboxGroupInput(inputId = "mod_filters",
+                         label = "Design Variables",
+                         choices = input$design,
+                         selected = NULL)
+    })
+
+    # GENERATE MODEL OUTCOME SELECTOR:
+    output$mod_outcome <- renderUI({
+      selectizeInput(inputId = "mod_outcome",
+                     label = "Outcome Variables",
+                     choices = input$response,
+                     selected = NULL,
+                     multiple = TRUE)
+    })
+
+    ## VISUALIZATION TAB ##############
+
+    ## RENDER OUTPUT ##################
+
+    ## DATA EXPLORER TAB:
     output$data <- DT::renderDataTable({
-      DT::datatable(dat_subset()[!(colnames(dat_subset()) %in% c("int7rn4l1d"))],
+      if (input$percents){
+        DT::datatable(dat_subset()[!(colnames(dat_subset()) %in% c("int7rn4l1d"))],
                     rownames = FALSE,
                     selection = list(target = 'row+column'),
                     caption = 'Monte Carlo Simulation results datatable:',
                     options = list(saveState = TRUE)) %>%
         formatPercentage(input$response, digits = ndigits)
+      } else {
+        DT::datatable(dat_subset()[!(colnames(dat_subset()) %in% c("int7rn4l1d"))],
+                      rownames = FALSE,
+                      selection = list(target = 'row+column'),
+                      caption = 'Monte Carlo Simulation results datatable:',
+                      options = list(saveState = TRUE))
+      }
+    })
+
+    ## ANOVA TAB:
+    output$models <- renderPrint({
+      if (is.null(input$mod_outcome) | is.null(input$mod_filters)){
+        return(cat("Please select at least one design and one outcome variable.\n"))
+      }
+
+      # Generate univariate and multivariate formulas:
+      if (length(input$mod_outcome) == 1){
+        fm <- paste0(input$mod_outcome, "~",
+                     paste(input$mod_filters, collapse = "+"))
+      } else {
+        fm <- paste0('cbind(',
+                          paste(input$mod_outcome, collapse = ','),
+                          ') ~ ',
+                          paste(input$mod_filters, collapse = '+'))
+      }
+
+      # Incorporate interactions:
+      if (length(input$mod_filters) > 1 & input$all_int == TRUE){
+        fm <- gsub("\\+", "*", fm)
+      }
+
+      data <- dat_subset()
+      mod <- do.call("lm",
+                     list(formula = as.formula(fm),
+                          data = as.name("data")))
+    cat(paste0("Model formula: ", fm,
+               "\nThis is based upon ", nrow(data),
+               " of the ", ncases, " rows found in the original dataframe.\n\n"))
+    print(Anova(mod))
+    })
+
+    ## VISUALIZATION TAB:
+    output$plot <- renderPlot({
+      type <- input$graphic
+
+      if (type == "shade"){
+        plot(x = rnorm(100), y = rnorm(100),
+             main = "I'm a shaded table")
+      }
+      if (type == "box"){
+        plot(x = rnorm(100), y = rnorm(100),
+             main = "I'm a boxplot")
+      }
+      if (type == "he"){
+        plot(x = rnorm(100), y = rnorm(100),
+             main = "I'm a HE plot")
+      }
     })
 
   }

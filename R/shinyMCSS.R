@@ -43,6 +43,7 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 1, export = 
   library(shiny)
   library(shinydashboard)
   library(car)
+  library(ggplot2)
   library(DT)
   options(DT.options = list(paging=FALSE,
                             dom = 'ltir'))
@@ -117,22 +118,55 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 1, export = 
                  selectInput(inputId = "graphic",
                              label = "Graphic Type:",
                              choices = c("Shaded Table" = "shade",
+                                         "Tableplot" = "table",
                                          "Boxplot" = "box",
                                          "HE Plot" = "he"),
                              multiple = FALSE,
                              selectize = FALSE),
                  conditionalPanel(condition = "input.graphic == 'shade'",
-                                  h4("SHADED TABLE SELECTED")),
+                                  textInput("shadeT", "Main Title:",
+                                            value = "Shaded Table"),
+                                  uiOutput("shadeX"),
+                                  uiOutput("shadeF"),
+                                  uiOutput("xlabeller"),
+                                  textInput("labelS_Y", "Y-axis label:",
+                                            value = "variable"),
+                                  sliderInput("shadecol", "Font color switch:",
+                                              min = 0, max = 1, value = .6,
+                                              step = .01, ticks = FALSE),
+                                  sliderInput("shaderow", "Number of rows:",
+                                              min = 1, max = 3, value = 2,
+                                              step = 1, ticks = FALSE),
+                                  selectInput("shadecols", "Palette:",
+                                              choices = rownames(brewer.pal.info)[18:35],
+                                              selected = "Blues",
+                                              multiple = FALSE,
+                                              selectize = FALSE)
+                                  ),
+                 conditionalPanel(condition = "input.graphic == 'table'",
+                                  textInput("tabtitle", "Main Title:",
+                                            value = "Tableplot"),
+                                  uiOutput("tabdes")),
                  conditionalPanel(condition = "input.graphic == 'box'",
-                                  h4("BOXPLOT SELECTED")),
+                                  uiOutput("boxdes"),
+                                  textInput("bTitle", "Main Title:",
+                                            value = "Boxplot"),
+                                  uiOutput("boxxlabeller"),
+                                  textInput("bYlab", "Y-axis label:",
+                                            value = "variable"),
+                                  checkboxInput("efford", "Order by means?",
+                                                value = FALSE)),
                  conditionalPanel(condition="input.graphic == 'he'",
                                   h4("HE PLOT SELECTED")),
                  width = 2),
                mainPanel(
-                 plotOutput("plot")
+                 fluidRow(
+                   box(width = 12,
+                       plotOutput("plot"))
+                 )
                ))
              ),
-    inverse = TRUE, collapsible = TRUE)
+             inverse = TRUE, collapsible = TRUE)
 
   ## SERVER #########################
   server = function(input, output, session) {
@@ -196,6 +230,45 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 1, export = 
     })
 
     ## VISUALIZATION TAB ##############
+    output$shadeX <- renderUI({
+      selectInput(inputId = "xaxis",
+                  label = "Facet:",
+                  choices = input$design,
+                  selected = input$design[[1]],
+                  multiple = FALSE)
+    })
+
+    output$xlabeller <- renderUI({
+      textInput("labelS_X", "X-axis label:", value = input$design[[2]])
+    })
+
+    output$shadeF <- renderUI({
+      selectInput(inputId = "facet",
+                  label = "X-axis:",
+                  choices = input$design,
+                  selected = input$design[[2]],
+                  multiple = FALSE)
+    })
+
+    output$tabdes <- renderUI({
+      checkboxGroupInput(inputId = "tabdesvars",
+                         label = "Design labels:",
+                         choices = input$design,
+                         selected = input$design)
+    })
+
+    output$boxdes <- renderUI({
+      selectInput(inputId = "bFacets",
+                  label = "Facet by:",
+                  choices = input$design,
+                  selected = input$design[[1]],
+                  multiple = FALSE)
+    })
+
+    output$boxxlabeller <- renderUI({
+      textInput("bXlab", "X-axis label:", value = input$design[[1]])
+    })
+
 
     ## RENDER OUTPUT ##################
 
@@ -251,22 +324,60 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 1, export = 
 
     ## VISUALIZATION TAB:
     output$plot <- renderPlot({
-      type <- input$graphic
+      dat <- dat_subset()[!(colnames(dat_subset()) %in% c("int7rn4l1d"))]
 
-      if (type == "shade"){
-        plot(x = rnorm(100), y = rnorm(100),
-             main = "I'm a shaded table")
+      if (input$graphic == "shade"){
+        if (is.null(input$xaxis) | is.null(input$facet)){
+          return()
+        }
+        dat <- convert_df(dat)
+
+        suppressWarnings(print(tableShade(dat,
+                         table_vars = c(input$xaxis, input$facet),
+                         colswitch = input$shadecol,
+                         numrow = input$shaderow,
+                         colour = input$shadecols,
+                         main_title = input$shadeT,
+                         xlab = input$labelS_X,
+                         ylab = input$labelS_Y)))
       }
-      if (type == "box"){
-        plot(x = rnorm(100), y = rnorm(100),
-             main = "I'm a boxplot")
+      if (input$graphic == "table"){
+        dat <- convert_df(dat)
+        simTableplot(dat,
+                     design_vars = input$tabdesvars,
+                     main_title = input$tabtitle)
       }
-      if (type == "he"){
+      if (input$graphic == "box"){
+        if (is.null(input$bFacets)){
+          return()
+        }
+        dat <- suppressMessages(melt(dat))
+
+        if (input$efford){
+          dat$variable <- with(dat,
+                               reorder(x = variable,
+                                       X = value,
+                                       FUN = function(x) mean(x)))
+        }
+
+        bplot <- ggplot(dat,
+                        aes(variable, value, fill = variable)) +
+          geom_boxplot() +
+          facet_wrap(input$bFacets) +
+          ggtitle(input$bTitle) +
+          theme(legend.position='none') +
+          ylab(input$bYlab) + xlab(input$bXlab)
+        print(bplot)
+      }
+      if (input$graphic == "he"){
         plot(x = rnorm(100), y = rnorm(100),
              main = "I'm a HE plot")
       }
-    })
-
+    },
+    width = "auto",
+    height = 900,
+    res = 96)
   }
+
   runApp(list(ui = ui, server = server), launch.browser = browser)
 }

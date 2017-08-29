@@ -6,7 +6,7 @@
 \usage{
 tableShade(dat, table_vars = NULL, method = "mean", ndigit = 2,
   colswitch = 0.6, numrow = 2, colours = "Blues",
-  main_title = "Shaded Table", xlab = NULL, ylab = NULL)
+  main_title = "Shaded Table", xlab = NULL, ylab = NULL, ...)
 }
 \arguments{
 \item{dat}{A \code{data.frame} object of \code{class(SimDesign)}.}
@@ -26,6 +26,8 @@ tableShade(dat, table_vars = NULL, method = "mean", ndigit = 2,
 \item{xlab}{A \code{character} value for the x-axis label.}
 
 \item{ylab}{A \code{character} value for the y-axis label.}
+
+\item{...}{Additional parameters passed onto \code{ggplot2}.}
 
 \item{cols}{A \code{character} value indicating the palette to use.}
 }

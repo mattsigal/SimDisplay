@@ -12,6 +12,7 @@
 #' @param main_title A \code{character} value for the main title of the plot.
 #' @param xlab A \code{character} value for the x-axis label.
 #' @param ylab A \code{character} value for the y-axis label.
+#' @param ... Additional parameters passed onto \code{ggplot2}.
 #'
 #' @return A \code{ggplot2} object.
 #'
@@ -38,7 +39,7 @@ tableShade <- function(dat,
                        ndigit = 2, colswitch = .6,
                        numrow = 2,
                        colours = "Blues", main_title = "Shaded Table",
-                       xlab = NULL, ylab = NULL){
+                       xlab = NULL, ylab = NULL, ...){
   # LIBRARIES
   require(reshape2)
   require(RColorBrewer)
@@ -72,11 +73,12 @@ tableShade <- function(dat,
 
   # GENERATE PLOT
   pdat <- ggplot(dat,
-                 aes_(x = as.name(table_vars[2]))) +
+                 aes_(x = as.name(table_vars[2])), ...) +
                  aes(y = variable,
                      fill = value) +
     facet_wrap(as.character(table_vars[1]),
-               nrow = numrow) +
+               nrow = numrow,
+               scales='free') +
     geom_tile() +
     scale_fill_gradientn(colours = myPalette(100)) +
     coord_equal() +

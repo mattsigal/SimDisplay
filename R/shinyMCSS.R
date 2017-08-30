@@ -114,6 +114,8 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 2){
                  uiOutput("mod_outcome"),
                  checkboxInput(inputId = "all_int",
                                label = "Add all interactions?", value = FALSE),
+                 checkboxInput(inputId = "rates",
+                               label = "Use logits?", value = TRUE),
                  width = 2),
                mainPanel(
                  fluidRow(
@@ -359,6 +361,10 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 2){
       }
 
       data <- dat_subset()
+      if (input$rates) {
+        data[,input$mod_outcome] <-
+          suppressWarnings(sapply(data[,input$mod_outcome], function(x) qlogis(x)))
+      }
       mod <- do.call("lm",
                      list(formula = as.formula(fm),
                           data = as.name("data")))

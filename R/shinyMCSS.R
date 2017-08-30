@@ -14,9 +14,6 @@
 #'
 #' @param ndigits \code{Integer}. If \code{percents} is true, how many digits should be printed?
 #'
-#' @param export \code{Boolean}, indicating whether to save the generated server
-#' and ui files to the current working directory.
-#'
 #' @param browser \code{Boolean} that is passed on to \code{runApp()} indicating
 #' whether the app should be run in an RStudio window or in the default web browser
 #'
@@ -38,8 +35,7 @@
 #' shinyMCSS(Brown1974)
 #' }
 
-
-shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 2, export = FALSE, browser = TRUE){
+shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 2, browser = TRUE){
   library(shiny)
   library(shinydashboard)
   library(car)
@@ -183,7 +179,13 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 2, export = 
                  )
                ))
              ),
-             inverse = TRUE, collapsible = TRUE)
+    tabPanel("About", value = "about", icon = icon("info-circle"),
+             fluidPage(
+               box(width = 10, status = "success",
+                   shiny::includeMarkdown(system.file("about.Rmd", package="SimDisplay")))
+             )
+            ),
+    inverse = TRUE, collapsible = TRUE)
 
   ## SERVER #########################
   server = function(input, output, session) {
@@ -311,14 +313,14 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 2, export = 
         DT::datatable(dat_subset()[!(colnames(dat_subset()) %in% c("int7rn4l1d"))],
                     rownames = FALSE,
                     selection = list(target = 'row+column'),
-                    caption = 'Monte Carlo Simulation results datatable:',
+                    caption = 'Datatable of Monte Carlo Simulation results. Filters applied in this tab will affect models and visualizations.',
                     options = list(saveState = TRUE)) %>%
         formatPercentage(input$response, digits = (input$rounding-2))
       } else {
         DT::datatable(dat_subset()[!(colnames(dat_subset()) %in% c("int7rn4l1d"))],
                       rownames = FALSE,
                       selection = list(target = 'row+column'),
-                      caption = 'Monte Carlo Simulation results datatable:',
+                      caption = 'Datatable of Monte Carlo Simulation results. Filters applied in this tab will affect models and visualizations.',
                       options = list(saveState = TRUE)) %>%
           formatRound(input$response, digits = input$rounding)
       }

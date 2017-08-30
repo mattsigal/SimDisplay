@@ -1,0 +1,46 @@
+## About `Shiny SimDisplay`
+
+Thank you for checking out this interactive applet! This application is part of the [SimDisplay](https://github.com/mattsigal/SimDisplay) package. It was written as a component of Matthew Sigal’s dissertation (*Everything on the table: Tabular, graphic, and interactive approaches for interpreting and presenting Monte Carlo simulation data*), which was completed at York University under the supervision of Dr. Michael Friendly, Dr. Robert Cribbie, and Dr. David Flora.
+
+The goal of this application is to allow for the exploration of Monte Carlo simulation study results produced by [SimDesign](https://github.com/philchalmers/SimDesign/). Multiple views of simulation results are afforded.
+
+## Launching the Application
+
+To install this application, simply paste the following code in the `R` console:
+
+```{r, eval=FALSE}
+devtools::install_github("mattsigal/SimDisplay")
+library(“SimDisplay”)
+```
+
+Once the `SimDisplay` package has been installed and loaded, the `shiny` application can be initialized via:
+
+```{r, eval=FALSE}
+shinyMCSS()  # To run with the default dataset
+```
+
+You can also pass any dataset object (of class `SimDesign`) to the function to utilize your own data within the application:
+
+```{r, eval=FALSE}
+library(“SimDisplay”)
+data(“Brown1974”)
+shinyMCSS(Brown1974)
+```
+
+## Instructions
+
+The application is organized from left to right. The left-most tab pertains to the **Data Explorer**. This is a `datatable` view of the results. Filters applied in this window will subset the data for the functions in the other tabs. The **Models** tab can be used to generate and inspect ANOVA and MANOVA models for the MCSS results (note: Generating a MANOVA model is required to produce some of the visualizations). The final tab pertains to various **Graphical Methods** for inspecting MCSS results, namely via semi-graphic tables, tableplots, boxplots, and HE plots.
+
+## Want to help?
+
+Contributions to the application are encouraged. To do so, please fork the `SimDisplay` repo and create a pull request. Additionally, you can report bugs and feature requests [here](https://github.com/mattsigal/SimDisplay/issues).
+
+## Author
+
+Matthew Sigal | matthewsigal@gmail.com
+
+## Credit
+
+This application was developed with [shiny](http://shiny.rstudio.com/) in 
+[Rstudio](https://www.rstudio.com/).
+

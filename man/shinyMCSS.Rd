@@ -5,7 +5,7 @@
 \title{Generate a basic interactive applet for a SimDesign dataset}
 \usage{
 shinyMCSS(dataframe = NULL, percents = FALSE, ndigits = 2,
-  export = FALSE, browser = TRUE)
+  browser = TRUE)
 }
 \arguments{
 \item{dataframe}{an optional \code{dataframe} object of class \code{SimDesign}.
@@ -15,9 +15,6 @@ If omitted, the app will load \code{data(Brown1974)}.}
 results as percentages.}
 
 \item{ndigits}{\code{Integer}. If \code{percents} is true, how many digits should be printed?}
-
-\item{export}{\code{Boolean}, indicating whether to save the generated server
-and ui files to the current working directory.}
 
 \item{browser}{\code{Boolean} that is passed on to \code{runApp()} indicating
 whether the app should be run in an RStudio window or in the default web browser}

@@ -45,14 +45,14 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 2){
   }
   rm(pcks, check, reqs, missingpcks)
 
-  library(shiny)
-  library(shinydashboard)
-  library(car)
-  library(ggplot2)
-  library(heplots)
-  library(candisc)
-  library(RColorBrewer)
-  library(DT)
+  suppressMessages(library(shiny, quietly = TRUE, warn.conflicts = FALSE))
+  suppressMessages(library(shinydashboard, quietly = TRUE, warn.conflicts = FALSE))
+  suppressMessages(library(car, quietly = TRUE, warn.conflicts = FALSE))
+  suppressMessages(library(ggplot2, quietly = TRUE, warn.conflicts = FALSE))
+  suppressMessages(library(heplots, quietly = TRUE, warn.conflicts = FALSE))
+  suppressMessages(library(candisc, quietly = TRUE, warn.conflicts = FALSE))
+  suppressMessages(library(RColorBrewer, quietly = TRUE, warn.conflicts = FALSE))
+  suppressMessages(library(DT, quietly = TRUE, warn.conflicts = FALSE))
   options(DT.options = list(paging=FALSE,
                             dom = 'ltir'))
 

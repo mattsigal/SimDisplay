@@ -1,7 +1,7 @@
 Package: SimDisplay
-Version: 0.4.0
+Version: 0.4.1
 Type: Package
-Title: Visualization of Monte Carlo simulation study data
+Title: Visualization and Exploration of Monte Carlo simulation study data
 Authors@R: c(person("Matthew", "Sigal", email = "matthewsigal@gmail.com", role = c("aut", "cre")),
              person("Phil", family="Chalmers", role=c('ctb')))
 Description: SimDisplay is useful for the visualization and summarization of
@@ -11,19 +11,22 @@ Roxygen: list(wrap = FALSE)
 VignetteBuilder: knitr
 Depends:
     R (>= 2.15),
-    SimDesign (>= 0.7.2),
+    SimDesign (>= 0.7.2)
+Imports:
+    methods,
+    reshape2,
+    xtable,
+    grid,
     shiny,
+    shinydashboard,
     ggplot2,
     plyr,
     tableplot,
     RColorBrewer,
     DT,
-    candisc
-Imports:
-    methods,
-    reshape2,
-    xtable,
-    grid
+    candisc,
+    car,
+    heplots
 Suggests:
     testthat,
     knitr

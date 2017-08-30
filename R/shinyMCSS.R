@@ -33,12 +33,25 @@
 #' }
 
 shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 2){
+  pcks <- c("shiny", "shinydashboard", "car", "ggplot2", "heplots",
+            "candisc", "RColorBrewer", "DT")
+  check <- unlist(lapply(pcks, requireNamespace, quietly=TRUE))
+  reqs <- data.frame(cbind(pcks, present = as.logical(check)))
+  missingpcks <- paste(reqs[reqs$present == FALSE, 1], collapse = ", ")
+
+  if (sum(reqs$present == FALSE) > 0) {
+    stop(paste0("Please install the following package(s) before running shinyMCSS(): ", missingpcks),
+         call. = FALSE)
+  }
+  rm(pcks, check, reqs, missingpcks)
+
   library(shiny)
   library(shinydashboard)
   library(car)
   library(ggplot2)
   library(heplots)
   library(candisc)
+  library(RColorBrewer)
   library(DT)
   options(DT.options = list(paging=FALSE,
                             dom = 'ltir'))

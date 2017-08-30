@@ -14,9 +14,6 @@
 #'
 #' @param ndigits \code{Integer}. If \code{percents} is true, how many digits should be printed?
 #'
-#' @param browser \code{Boolean} that is passed on to \code{runApp()} indicating
-#' whether the app should be run in an RStudio window or in the default web browser
-#'
 #' @seealso \code{\link{Brown1974}}
 #' @references
 #' Sigal, M. J., & Chalmers, R. P. (2016). Play it again: Teaching statistics with Monte
@@ -35,7 +32,7 @@
 #' shinyMCSS(Brown1974)
 #' }
 
-shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 2, browser = TRUE){
+shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 2){
   library(shiny)
   library(shinydashboard)
   library(car)
@@ -450,5 +447,5 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 2, browser =
     res = 96)
   }
 
-  runApp(list(ui = ui, server = server), launch.browser = browser)
+  runApp(list(ui = ui, server = server), launch.browser = TRUE)
 }

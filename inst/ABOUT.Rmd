@@ -9,8 +9,8 @@ The goal of this application is to allow for the exploration of Monte Carlo simu
 To install this application, simply paste the following code in the `R` console:
 
 ```{r, eval=FALSE}
-devtools::install_github("mattsigal/SimDisplay")
-library(“SimDisplay”)
+devtools::install_github("mattsigal/SimDisplay", dependencies = TRUE)
+library("SimDisplay")
 ```
 
 Once the `SimDisplay` package has been installed and loaded, the `shiny` application can be initialized via:
@@ -22,8 +22,8 @@ shinyMCSS()  # To run with the default dataset
 You can also pass any dataset object (of class `SimDesign`) to the function to utilize your own data within the application:
 
 ```{r, eval=FALSE}
-library(“SimDisplay”)
-data(“Brown1974”)
+library("SimDisplay")
+data("Brown1974")
 shinyMCSS(Brown1974)
 ```
 

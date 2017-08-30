@@ -39,11 +39,13 @@
 #' }
 
 
-shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 1, export = FALSE, browser = TRUE){
+shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 2, export = FALSE, browser = TRUE){
   library(shiny)
   library(shinydashboard)
   library(car)
   library(ggplot2)
+  library(heplots)
+  library(candisc)
   library(DT)
   options(DT.options = list(paging=FALSE,
                             dom = 'ltir'))
@@ -89,6 +91,10 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 1, export = 
                  checkboxInput(inputId = "percents",
                                label = "Show sim variables as percents?",
                                value = percents),
+                 numericInput(inputId = "rounding",
+                              label = "Round results to...",
+                              value = ndigits,
+                              min = 0, max = 3, step = 1),
                  width = 2),
                mainPanel(
                  DT::dataTableOutput("data")
@@ -120,7 +126,7 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 1, export = 
                              choices = c("Shaded Table" = "shade",
                                          "Tableplot" = "table",
                                          "Boxplot" = "box",
-                                         "HE Plot" = "he"),
+                                         "HE Framework" = "he"),
                              multiple = FALSE,
                              selectize = FALSE),
                  conditionalPanel(condition = "input.graphic == 'shade'",
@@ -157,7 +163,18 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 1, export = 
                                   checkboxInput("efford", "Order by means?",
                                                 value = FALSE)),
                  conditionalPanel(condition="input.graphic == 'he'",
-                                  h4("HE PLOT SELECTED")),
+                                  selectInput("candisc", "Method:",
+                                              choices = c("HE Plot", "CDA Plot",
+                                                          "CDA HE Plot"),
+                                              selected = "HE Plot"),
+                                  conditionalPanel(condition = "input.candisc == 'HE Plot'",
+                                                   uiOutput("heOut1"),
+                                                   uiOutput("heOut2")),
+                                  conditionalPanel(condition = "input.candisc == 'CDA HE Plot'",
+                                                   checkboxInput("cdafill", "Fill?", value = TRUE),
+                                                   sliderInput("cdafillslide", "Transparency",
+                                                               min = 0, max = 1, value = .1, step = .01))
+                                 ),
                  width = 2),
                mainPanel(
                  fluidRow(
@@ -269,6 +286,22 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 1, export = 
       textInput("bXlab", "X-axis label:", value = input$design[[1]])
     })
 
+    output$heOut1 <- renderUI({
+      selectInput(inputId = "hevars1",
+                  label = "X-axis variable",
+                  choices = input$mod_outcome,
+                  selected = input$mod_outcome[[1]],
+                  multiple = FALSE)
+    })
+
+    output$heOut2 <- renderUI({
+      selectInput(inputId = "hevars2",
+                  label = "Y-axis variable",
+                  choices = input$mod_outcome,
+                  selected = input$mod_outcome[[2]],
+                  multiple = FALSE)
+    })
+
 
     ## RENDER OUTPUT ##################
 
@@ -280,13 +313,14 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 1, export = 
                     selection = list(target = 'row+column'),
                     caption = 'Monte Carlo Simulation results datatable:',
                     options = list(saveState = TRUE)) %>%
-        formatPercentage(input$response, digits = ndigits)
+        formatPercentage(input$response, digits = (input$rounding-2))
       } else {
         DT::datatable(dat_subset()[!(colnames(dat_subset()) %in% c("int7rn4l1d"))],
                       rownames = FALSE,
                       selection = list(target = 'row+column'),
                       caption = 'Monte Carlo Simulation results datatable:',
-                      options = list(saveState = TRUE))
+                      options = list(saveState = TRUE)) %>%
+          formatRound(input$response, digits = input$rounding)
       }
     })
 
@@ -370,8 +404,43 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 1, export = 
         print(bplot)
       }
       if (input$graphic == "he"){
-        plot(x = rnorm(100), y = rnorm(100),
-             main = "I'm a HE plot")
+        validate(need(!is.null(input$mod_outcome) | !is.null(input$mod_filters),
+                 "Please select at least one design and two outcome variables in the Models tab."))
+        validate(need(length(input$mod_outcome) >= 2,
+                 "Please select at least one design and two outcome variables in the Models tab."))
+        if (is.null(input$hevars1)){
+          return()
+        }
+
+        fm <- paste0('cbind(',
+                       paste(input$mod_outcome, collapse = ','),
+                       ') ~ ',
+                       paste(input$mod_filters, collapse = '+'))
+
+        # Incorporate interactions:
+        if (length(input$mod_filters) > 1 & input$all_int == TRUE){
+          fm <- gsub("\\+", "*", fm)
+        }
+
+        data <- dat_subset()
+        mod <- do.call("lm",
+                       list(formula = as.formula(fm),
+                            data = as.name("data")))
+
+        if (input$candisc == "HE Plot"){
+          heplot(mod, main = paste0("HE Plot for model:\n", fm),
+                      variables = c(input$hevars1, input$hevars2))
+        }
+        if (input$candisc == "CDA Plot"){
+          mod <- candisc(mod)
+          plot(mod, main = paste0("CDA Plot for model:\n", fm))
+        }
+        if (input$candisc == "CDA HE Plot"){
+          mod <- candisc(mod)
+          heplot(mod, main = paste0("CDA HE Plot for model:\n", fm),
+                 fill = input$cdafill,
+                 fill.alpha = input$cdafillslide)
+        }
       }
     },
     width = "auto",

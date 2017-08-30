@@ -4,7 +4,7 @@
 \alias{shinyMCSS}
 \title{Generate a basic interactive applet for a SimDesign dataset}
 \usage{
-shinyMCSS(dataframe = NULL, percents = FALSE, ndigits = 1,
+shinyMCSS(dataframe = NULL, percents = FALSE, ndigits = 2,
   export = FALSE, browser = TRUE)
 }
 \arguments{

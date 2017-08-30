@@ -41,10 +41,10 @@ tableShade <- function(dat,
                        colours = "Blues", main_title = "Shaded Table",
                        xlab = NULL, ylab = NULL, ...){
   # LIBRARIES
-  require(reshape2)
-  require(RColorBrewer)
-  require(ggplot2)
-  require(dplyr)
+  suppressMessages(require(reshape2, quietly=T, warn.conflicts=F))
+  suppressMessages(require(RColorBrewer, quietly=T, warn.conflicts=F))
+  suppressMessages(require(ggplot2, quietly=T, warn.conflicts=F))
+  suppressMessages(require(dplyr, quietly=T, warn.conflicts=F))
 
   # GENERATE PALETTE
   myPalette <- colorRampPalette(brewer.pal(9, colours))

@@ -45,14 +45,14 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 2){
   }
   rm(pcks, check, reqs, missingpcks)
 
-  suppressMessages(library(shiny, quietly = TRUE, warn.conflicts = FALSE))
-  suppressMessages(library(shinydashboard, quietly = TRUE, warn.conflicts = FALSE))
-  suppressMessages(library(car, quietly = TRUE, warn.conflicts = FALSE))
-  suppressMessages(library(ggplot2, quietly = TRUE, warn.conflicts = FALSE))
-  suppressMessages(library(heplots, quietly = TRUE, warn.conflicts = FALSE))
-  suppressMessages(library(candisc, quietly = TRUE, warn.conflicts = FALSE))
-  suppressMessages(library(RColorBrewer, quietly = TRUE, warn.conflicts = FALSE))
-  suppressMessages(library(DT, quietly = TRUE, warn.conflicts = FALSE))
+  suppressMessages(require(shiny, quietly=T, warn.conflicts=F))
+  suppressMessages(require(shinydashboard, quietly=T, warn.conflicts=F))
+  suppressMessages(require(car, quietly=T, warn.conflicts=F))
+  suppressMessages(require(ggplot2, quietly=T, warn.conflicts=F))
+  suppressMessages(require(heplots, quietly=T, warn.conflicts=F))
+  suppressMessages(require(candisc, quietly=T, warn.conflicts=F))
+  suppressMessages(require(RColorBrewer, quietly=T, warn.conflicts=F))
+  suppressMessages(require(DT, quietly=T, warn.conflicts=F))
   options(DT.options = list(paging=FALSE,
                             dom = 'ltir'))
 

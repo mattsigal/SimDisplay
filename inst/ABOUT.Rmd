@@ -11,6 +11,7 @@ To install this application, simply paste the following code in the `R` console:
 ```{r, eval=FALSE}
 devtools::install_github("mattsigal/SimDisplay", dependencies = TRUE)
 library("SimDisplay")
+install_suggests() # Ensures all supplementary packages are available
 ```
 
 Once the `SimDisplay` package has been installed and loaded, the `shiny` application can be initialized via:

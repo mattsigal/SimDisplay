@@ -66,3 +66,8 @@ theme_spark <- function(){
         panel.grid.minor=element_blank(),plot.background=element_blank())
   ggplot2::`%+replace%`(min, customization)
 }
+
+# Package startup message:
+.onAttach <- function(libname, pkgname) {
+  packageStartupMessage("Please run install_suggests() prior to working with SimDisplay.")
+}

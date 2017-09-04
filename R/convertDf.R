@@ -1,6 +1,6 @@
 #' Convert to SimDesign Object
 #'
-#' \code{convert_df} is a helper function that
+#' \code{convertDf} is a helper function that
 #' can convert a \code{data.frame} into a \code{SimDesign} object.
 #'
 #' @param x A \code{data.frame} object, specifically with simulation design
@@ -22,14 +22,14 @@
 #' dat$Result1 <- rnorm(27)
 #' dat$Result2 <- rnorm(27)
 #'
-#' convert_df(dat) # Error: N, SD, and Skew not set as factors
+#' convertDf(dat) # Error: N, SD, and Skew not set as factors
 #'
 #' dat[,1:3] <- lapply(dat[,1:3], as.factor)
 #' newdat <- convert_df(dat)
 #' str(newdat)
 #' }
 #'
-convert_df <- function(x){
+convertDf <- function(x){
   x <- as.data.frame(x)
   is.fact <- sapply(x, is.factor)
   attributes(x)$design_names$design <- names(is.fact[is.fact == TRUE])

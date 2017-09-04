@@ -382,7 +382,7 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 2){
         if (is.null(input$xaxis) | is.null(input$facet)){
           return()
         }
-        dat <- convert_df(dat)
+        dat <- convertDf(dat)
 
         suppressWarnings(print(tableShade(dat,
                          table_vars = c(input$xaxis, input$facet),
@@ -394,7 +394,7 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 2){
                          ylab = input$labelS_Y)))
       }
       if (input$graphic == "table"){
-        dat <- convert_df(dat)
+        dat <- convertDf(dat)
         simTableplot(dat,
                      design_vars = input$tabdesvars,
                      main_title = input$tabtitle)

@@ -11,7 +11,7 @@
 #' @param lucid Should results be printed? This converts results to characters of same length.
 #' @param digits Display lucid results to how many significant digits?
 #' @param caption A \code{character} string indicating caption.
-#' @param rm A \code{character} vector indicating the names of any columns to hide from the table.
+#' @param hide A \code{character} vector indicating the names of any columns to hide from the table.
 #'
 #' @return A character \code{vector}.
 #'
@@ -26,7 +26,7 @@
 #' Power <- subset(Brown1974, var_ratio != 1) # from power conditions
 #' simTable(TypeI)
 #' simTable(TypeI, by = 'sample_size')
-#' simTable(TypeI, by = 'sample_size', rm = 'var_ratio')
+#' simTable(TypeI, by = 'sample_size', hide = 'var_ratio')
 #' }
 #'
 simTable <- function(dat, by = NULL,

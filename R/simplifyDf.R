@@ -20,7 +20,7 @@
 #'
 simplifyDf <- function(x) {
   if (!("SimDesign" %in% class(x)))
-    stop("This object is not of class SimDesign. See convert_df().")
+    stop("This object is not of class SimDesign. See convertDf().")
 
   groupColumns <- get_design_levels(x)
   dataColumns <- get_sim_levels(x)

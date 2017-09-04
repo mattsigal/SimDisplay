@@ -26,7 +26,7 @@
 #'
 summary.SimDesign <- function(object, digits = 3, percent = FALSE, ...) {
   if (!("SimDesign" %in% class(object)))
-    stop("This object is not of class SimDesign. See convert_df().")
+    stop("This object is not of class SimDesign. See convertDf().")
 
   groupColumns <- get_design_levels(object)
   dataColumns <- get_sim_levels(object)

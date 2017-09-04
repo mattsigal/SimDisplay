@@ -27,7 +27,7 @@ simTable(dat, by = NULL, highlight = TRUE, upper.bound = 0.075,
 
 \item{caption}{A \code{character} string indicating caption.}
 
-\item{rm}{A \code{character} vector indicating the names of any columns to hide from the table.}
+\item{hide}{A \code{character} vector indicating the names of any columns to hide from the table.}
 }
 \value{
 A character \code{vector}.
@@ -43,7 +43,7 @@ TypeI <- subset(Brown1974, var_ratio == 1) # Separate type I error rate conditio
 Power <- subset(Brown1974, var_ratio != 1) # from power conditions
 simTable(TypeI)
 simTable(TypeI, by = 'sample_size')
-simTable(TypeI, by = 'sample_size', rm = 'var_ratio')
+simTable(TypeI, by = 'sample_size', hide = 'var_ratio')
 }
 
 }

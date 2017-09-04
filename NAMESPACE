@@ -2,7 +2,7 @@
 
 S3method(summary,SimDesign)
 export(SimAnovaMV)
-export(convert_df)
+export(convertDf)
 export(install_suggests)
 export(roundSim)
 export(shinyMCSS)

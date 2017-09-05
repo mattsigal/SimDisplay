@@ -11,12 +11,15 @@ Roxygen: list(wrap = FALSE)
 VignetteBuilder: knitr
 Depends:
     R (>= 2.15),
-    SimDesign (>= 0.7.2)
+    SimDesign (>= 1.7)
 Imports:
     methods,
+    grid
+Suggests:
+    testthat,
+    knitr,
     reshape2,
     xtable,
-    grid,
     shiny,
     shinydashboard,
     ggplot2,
@@ -27,9 +30,6 @@ Imports:
     candisc,
     car,
     heplots
-Suggests:
-    testthat,
-    knitr
 License: GPL (>= 3)
 LazyData: TRUE
 Maintainer: Matthew Sigal <matthewsigal@gmail.com>

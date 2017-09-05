@@ -253,7 +253,7 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 2){
 
     # GENERATE MODEL OUTCOME SELECTOR:
     output$mod_outcome <- renderUI({
-      selectizeInput(inputId = "mod_outcome",
+      selectInput(inputId = "mod_outcome",
                      label = "Outcome Variables",
                      choices = input$response,
                      selected = NULL,

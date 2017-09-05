@@ -1,5 +1,5 @@
 Package: SimDisplay
-Version: 0.4.1
+Version: 0.4.2
 Type: Package
 Title: Visualization and Exploration of Monte Carlo simulation study data
 Authors@R: c(person("Matthew", "Sigal", email = "matthewsigal@gmail.com", role = c("aut", "cre")),
@@ -11,7 +11,7 @@ Roxygen: list(wrap = FALSE)
 VignetteBuilder: knitr
 Depends:
     R (>= 2.15),
-    SimDesign (>= 1.7)
+    SimDesign (>= 1.6)
 Imports:
     methods,
     grid

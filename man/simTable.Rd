@@ -6,7 +6,7 @@
 \usage{
 simTable(dat, by = NULL, highlight = TRUE, upper.bound = 0.075,
   lower.bound = 0.025, colnames = NULL, lucid = TRUE, digits = 2,
-  caption = NULL, rm = NULL)
+  caption = NULL, hide = NULL)
 }
 \arguments{
 \item{dat}{A \code{data.frame} object of \code{class(SimDesign)}.}

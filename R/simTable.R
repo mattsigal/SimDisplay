@@ -33,16 +33,16 @@ simTable <- function(dat, by = NULL,
                      highlight = TRUE,
                      upper.bound = .075, lower.bound = .025,
                      colnames = NULL, lucid = TRUE, digits = 2,
-                     caption = NULL, rm = NULL){
+                     caption = NULL, hide = NULL){
 
   # Simple Dataframe:
   groupColumns <- get_design_levels(dat)
   dataColumns <- get_sim_levels(dat)
   df <- data.frame(dat[,c(groupColumns, dataColumns)]) # simplify dataframe object
 
-  df <- df[ , !(names(df) %in% rm), drop = FALSE] # remove unwanted columns
-  groupColumns <- groupColumns[!(groupColumns %in% rm)]
-  dataColumns <- dataColumns[!(dataColumns %in% rm)]
+  df <- df[ , !(names(df) %in% hide), drop = FALSE] # remove unwanted columns
+  groupColumns <- groupColumns[!(groupColumns %in% hide)]
+  dataColumns <- dataColumns[!(dataColumns %in% hide)]
 
   # Collapse Dataframe if needed:
   if (!is.null(by)) {

@@ -296,7 +296,7 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 2){
     })
 
     output$boxxlabeller <- renderUI({
-      textInput("bXlab", "X-axis label:", value = input$design[[1]])
+      textInput("bXlab", "X-axis label:", value = "value")
     })
 
     output$heOut1 <- renderUI({

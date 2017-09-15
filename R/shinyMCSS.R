@@ -167,7 +167,7 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 2){
                                             value = "Boxplot"),
                                   uiOutput("boxxlabeller"),
                                   textInput("bYlab", "Y-axis label:",
-                                            value = "variable"),
+                                            value = "value"),
                                   checkboxInput("efford", "Order by means?",
                                                 value = FALSE)),
                  conditionalPanel(condition="input.graphic == 'he'",
@@ -296,7 +296,7 @@ shinyMCSS <- function(dataframe = NULL, percents = FALSE, ndigits = 2){
     })
 
     output$boxxlabeller <- renderUI({
-      textInput("bXlab", "X-axis label:", value = "value")
+      textInput("bXlab", "X-axis label:", value = "variable")
     })
 
     output$heOut1 <- renderUI({
